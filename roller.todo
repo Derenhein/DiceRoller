@@ -1,0 +1,67 @@
+A tener en cuenta:
+ ☐ Buscar información para hacer un tirador de dados realmente aleatorio
+   ( math.random() no es 100% aleatorio )
+ Crear un método para el manejo del daño mágico:
+   ☐ Armas con daño elemental o mágico
+     ☐ Indicar que tipo de daño usa
+Crear hoja de estilos css:
+ ☐ Labels para elementos mágicos:
+   ☐ Arcano
+   ☐ Fuego
+   ☐ Hielo
+   ☐ Electricidad
+   ☐ Veneno
+ ☐ Label para daño normal y tiradas:
+   ☐ Daño normal
+   ☐ Crítico
+   ☐ Pífia
+RuneQuest 6:
+  ☐ No tiene especial.
+  ☐ Crítico al 10%
+MERP (segunda edición) :
+ ✔ Mirar como se calculan las pífias @done (14-05-16 14:06)
+   página 20 del manual
+Metodo skill(rolls, sides, mod, skill, difficulty):
+ ☐ Ha de devolver un objeto con los datos de la tirada
+   ✔ Crear para BRP @done (14-05-15 18:05)
+   ☐ Crear para MERP
+ ✔ Ha de devolver si ha acertado bajo el porcentaje o habilidad o no @done (14-05-19 12:26)
+   ✔ Crear para BRP @done (14-05-16 17:52)
+   ✔ Crear para MERP @done (14-05-19 12:25)
+ ✔ Añadir 'showlog' para mostrar contenido en un log o no @done (14-05-19 16:21)
+ ✔ Retornar objeto con las tiradas @done (14-05-15 18:06)
+ ☐ Criticos y pífias:
+   ✔ Críticos en BRP, nunca puede ser 0, el mínimo es 1 @done (14-05-16 17:59)
+   ✔ Pífias en BRP, nunca pueden eliminarse, el mínimo es 100 @done (14-05-19 12:25)
+     En este caso, realmente no es muy problemático que el mínimo de pifia séa 100. El problema viene con el
+     máximo umbral de pífia, que ha de tenerse en cuenta por el usuario.
+   ✔ Críticos multiplican el modificador de habilidad @done (14-05-20 12:23)
+ ✔ Implementar la suma/resta del mod. Debe ir antes de calcular si es crítico o pífia. @done (14-05-19 12:19)
+ ✔ Implementar el poder añadir la habilidad de forma manual. @done (14-05-16 19:16)
+   ✔ Si la habilidad fuera 0, se usaría por defecto del sistema @done (14-05-16 19:16)
+ ✔ Implementar el poder añadir el modificador de foma manual @done (14-05-16 19:16)
+   ✔ Si la habilidad fuera false, se usaría por defecto del sistema @done (14-05-16 19:16)
+ ✔ BRD Añadida verificación de si se quiere especial (viejas ediciones BRD); @done (14-05-20 11:23)
+ ☐ Optimizar todo los que se pueda las funciones para mostrar en pantalla los resultados
+Metodo damage(params, showlog):
+ ✔ los modificadores al daño sólo se aplican una sola vez @done (14-05-19 16:21)
+ ✔ Reescrito el método entero para mejor manejo de los datos y poder aplicar mejor el punto anterior @done (14-05-19 16:21)
+ ✔ Añadir funcionalidad Showlog. @done (14-05-22 18:05)
+ ☐ Optimizar todo los que se pueda las funciones para mostrar en pantalla los resultados
+ ☐ Daño normal:
+   ☐ Indicar si ignora armadura
+ ☐ Críticos:
+   ✔ Aplicar multiplicador al daño del crítico. @done (14-05-20 12:24)
+   ✔ Mostrar multiplicador del daño crítico. @done (14-05-22 11:49)
+   ✔ Indicar si ignora armadura @done (14-05-22 11:49)
+ ☐ Especial:
+   ✔ Mostrar multiplicador al daño del especial @done (14-05-22 11:50)
+   ✔ Indicar si ignora armadura @done (14-05-22 11:50)
+Metodo Armor(ArmorParams, FullDamage, Showlog):
+ ☐ Mostrar tirada de armadura, armadura fija y total de la suma de la tirada y del fijo
+ ☐ Mostrar armadura fija si no hay dado de armadura
+Documentación:
+ ☐ skill()
+ ☐ damage()
+ ☐ armor()
+ ☐ magic()

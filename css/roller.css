@@ -1,0 +1,79 @@
+/**
+ * CSS for Dice Roller Lib
+ */
+
+.lbox {
+	display: inline;
+	padding: 0.4em 0.6em 0.4em 0.6em;
+	font-size: 100%;
+	font-weight: 700;
+	line-height: 2.4;
+	color: #fff;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border: 1px solid #C0C0C0;
+}
+.lbox[href]:hover,
+.lbox[href]:focus {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	}
+.lbox:hover,
+.lbox:focus {
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+	border: 1px solid #535353;
+	transition: border-color .2s linear, color .3s;
+}
+.lbox:empty {
+	display: none;
+}
+.lbox {
+	position: relative;
+	top: -1px;
+}
+.lbox-default {
+	background-color: #999;
+}
+.lbox-default[href]:hover,
+.lbox-default[href]:focus {
+	background-color: #808080;
+}
+.lbox-primary {
+	background-color: #428bca;
+}
+.lbox-primary[href]:hover,
+.lbox-primary[href]:focus {
+	background-color: #3071a9;
+}
+.lbox-success {
+	background-color: #5cb85c;
+}
+.lbox-success[href]:hover,
+.lbox-success[href]:focus {
+	background-color: #449d44;
+}
+.lbox-info {
+	background-color: #5bc0de;
+}
+.lbox-info[href]:hover,
+.lbox-info[href]:focus {
+	background-color: #31b0d5;
+}
+.lbox-warning {
+	background-color: #f0ad4e;
+}
+.lbox-warning[href]:hover,
+.lbox-warning[href]:focus {
+	background-color: #ec971f;
+}
+.lbox-danger {
+	background-color: #d9534f;
+}
+.lbox-danger[href]:hover,
+.lbox-danger[href]:focus {
+	background-color: #c9302c;
+}

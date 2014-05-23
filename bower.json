@@ -1,0 +1,20 @@
+{
+  "name": "Dice Roller",
+  "version": "0.0.0",
+  "authors": [
+    "Derenhein derenhein@openmailbox.org"
+  ],
+  "description": "Javascript library for roll dices",
+  "main": "diceroller.js",
+  "keywords": [
+    "javascript"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
