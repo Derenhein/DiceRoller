@@ -1,83 +1,317 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Diceroller : Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices" />
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Diceroller by Derenhein</title>
+    <title>Diceroller</title>
   </head>
 
   <body>
-    <header>
-      <div class="inner">
-        <h1>Diceroller</h1>
-        <h2>Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</h2>
-        <a href="https://github.com/Derenhein/DiceRoller" class="button"><small>View project on</small>GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Derenhein/DiceRoller">View on GitHub</a>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+          <h1 id="project_title">Diceroller</h1>
+          <h2 id="project_tagline">Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</h2>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
-
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
-
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
-
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
-
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
-
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
-
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
-
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
-
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/Derenhein/DiceRoller/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/Derenhein/DiceRoller/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/Derenhein/DiceRoller"></a> is maintained by <a href="https://github.com/Derenhein">Derenhein</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/Derenhein/DiceRoller/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/Derenhein/DiceRoller/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
     </div>
 
-  
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="diceroller" class="anchor" href="#diceroller"><span class="octicon octicon-link"></span></a>DiceRoller</h1>
+
+<p>Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</p>
+
+<h2>
+<a name="specifications" class="anchor" href="#specifications"><span class="octicon octicon-link"></span></a>Specifications:</h2>
+
+<ul>
+<li>Single o multi dice rolls</li>
+<li>Damage calculation</li>
+</ul><h2>
+<a name="getting-starterd" class="anchor" href="#getting-starterd"><span class="octicon octicon-link"></span></a>Getting Starterd</h2>
+
+<p>DiceRoller is a light and simple <strong>javascript</strong> library made for help DM and players develop tools for make life easyer.</p>
+
+<p>Made in javascript, don´t need other libreries like <strong>JQuery</strong>.</p>
+
+<p>At this time, i´m using <strong>Bootstrap CSS</strong> for easy styling, but is planned to develop a custom CSS.</p>
+
+<div class="highlight highlight-html"><pre><span class="cp">&lt;!doctype html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+        <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;title&gt;</span>DiceRoller<span class="nt">&lt;/title&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/roller.css"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/diceroller.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+    <span class="nt">&lt;body&gt;</span>
+        ...content...
+    <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+</pre></div>
+
+<h2>
+<a name="setting-game-system" class="anchor" href="#setting-game-system"><span class="octicon octicon-link"></span></a>Setting game system</h2>
+
+<p>Set game rules is basic for the performance of DiceRoller</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">GameSystem</span> <span class="o">=</span> <span class="p">{</span>
+
+        <span class="nx">DiceSides</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">Percentual</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">BaseSkill</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+        <span class="nx">OpenRoll</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">BonusSkill</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">HistoryBox</span><span class="o">:</span> <span class="s1">'logbox'</span><span class="p">,</span>
+
+        <span class="nx">CriticalTreshold</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">CriticalMultiplier</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nx">CriticalPierceArmor</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+
+        <span class="nx">SpecialRoll</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">SpecialRollMultiplier</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="nx">SpecialRollTreshold</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+        <span class="nx">SpecialRollPierceArmor</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+
+        <span class="nx">EpicFail</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">EpicFailTreshold</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">EpicFailMaxTreshold</span><span class="o">:</span> <span class="mi">96</span><span class="p">,</span>
+        <span class="nx">EpicFailMinTreshold</span><span class="o">:</span> <span class="mi">100</span>
+
+<span class="p">};</span>
+</pre></div>
+
+<p><code>DiceSides</code>: Define how many sides uses the main dice. Games like MERP or BRP uses 1d100. </p>
+
+<p><code>Percentual</code>: BRP games (like Rune Quest) uses a percentual system. Putting this option to false, automatically makes game system as a difficulty system (MERP or D&amp;D game system).</p>
+
+<p><code>BaseSkill</code>: A basic skill punctuation for roll on it.</p>
+
+<p><code>OpenRoll</code>: MERP like system uses a "open roll" when the dice roll reaches certain puntuation</p>
+
+<p><code>BonusSkill</code>: Add a puntuation modificator to the roll. Can be negative (a penalty to the roll).</p>
+
+<p><code>HistoryBox</code>: ID of the div for the roll log.</p>
+
+<p><code>CriticalTreshold</code>: Used as a percentage of the BaseSkill in BRP like system. A '10' means 10% of the BaseSkill.</p>
+
+<p><code>CriticalMultiplier</code>: Critical hits multiplies damage? put your multiplier in this option.</p>
+
+<p><code>CriticalPierceArmor</code>: Critical ignores armor protection? Set true here.</p>
+
+<p><code>SpecialRoll</code>: <strong>Percentile system.</strong> Some game systems adds an extra success, better than a normal one, lesser than a critical. Set true if your game system use it.</p>
+
+<p><code>SpecialRollMultiplier</code>: <strong>Percentile system.</strong> Set damage multiplier of the Special Roll.</p>
+
+<p><code>SpecialRollTreshold</code>: <strong>Percentile system.</strong> Same as CriticalTreshold, but for Special roll. Pay attention, as the example from above with a BaseSkill: 50, crítical is set to 10% and Special to 20%. These mean, from 1% to 5% roll are crítical, and 6% to 10% are special rolls</p>
+
+<p><code>SpecialRollPierceArmor</code>: Set to true if Special rolls ignores armor.</p>
+
+<p><code>EpicFail</code>: EpicFail rolls needed? set to true.</p>
+
+<p><code>EpicFailTreshold</code>: As Critical and Special roll, sets a percetage for Epic Fail rolls. In BRP like systems, usually is a range from 96 to 100% rolls.</p>
+
+<p><code>EpicFailMaxTreshold</code>: Mínimal roll for a "succes fail". Example is set to 96, means a roll from 96 or more will be a EpicFail.</p>
+
+<p><code>EpicFailMinTreshold</code>: independently, a máximun range can be setted.</p>
+
+<h2>
+<a name="using-diceroller" class="anchor" href="#using-diceroller"><span class="octicon octicon-link"></span></a>Using DiceRoller</h2>
+
+<p>DiceRoller uses "D" as a prefix for invoking it, like this</p>
+
+<p><code>D(gamesystem).roll(3,6,0);</code></p>
+
+<p>The example from avobe is a very simple method, invoking a 3 rolls of 6 sides dice and a 0 modifier (a bonification to the roll or a penalty);</p>
+
+<p><code>D(gamesystem).roll(2,6,6);</code></p>
+
+<p>These other example does a 2d6+6 roll.</p>
+
+<h5>
+<a name="catching-dgamesystem" class="anchor" href="#catching-dgamesystem"><span class="octicon octicon-link"></span></a>Catching D([GameSystem])</h5>
+
+<p>More comfortable form to use the same game system on every DiceRoller method is catching it like this:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">MySys</span> <span class="o">=</span> <span class="nx">D</span><span class="p">(</span><span class="nx">GameSystem</span><span class="p">);</span>
+
+<span class="nx">MySys</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+
+</pre></div>
+
+<h4>
+<a name="skill-method" class="anchor" href="#skill-method"><span class="octicon octicon-link"></span></a>Skill method:</h4>
+
+<p>Mainly used for skill rolls, like combat skill, jump, craft, riding, etc. Accepts extra parameters like a modification to the roll, punctuation of the skill and difficulty to overcome.</p>
+
+<p><strong>skill(rolls, sides, mod, skill, difficulty):</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//Makes 1d100 roll</span>
+<span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>Parameters</strong></p>
+
+<p><code>rolls and sides</code>: How many rolls and how many sides have our dice.</p>
+
+<p><code>mod</code>: A bonification or a penaltiy for this roll. This mod is applied first at skill, not at the end of the roll.</p>
+
+<p><code>skill</code>: Base puntuation of the rolled skill. If is not defined, by default uses BaseSkill. Set to 0 is possible if a skill does not required.</p>
+
+<p><code>difficulty</code>: Set a difficulty to overcome in non percentual game system.</p>
+
+<p><strong>Skill() Return object:</strong></p>
+
+<p>Skill returns an object like the sequent example:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">RollsObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">Roll</span> <span class="o">:</span> <span class="nx">RollResult</span><span class="p">,</span>
+    <span class="nx">Critical</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">Special</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">EpicFail</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="nx">Fail</span><span class="o">:</span> <span class="kc">false</span>
+<span class="p">};</span>
+</pre></div>
+
+<p><strong>Parameters returned:</strong></p>
+
+<p><code>Roll</code>: Returns the final result of the skill roll.</p>
+
+<p><code>Critical</code>: true for a critical roll.</p>
+
+<p><code>Special</code>: true for a special roll.</p>
+
+<p><code>EpicFail</code>: true if the roll result is a Epic Fail.</p>
+
+<p><code>Fail</code>: false for a succes, true for a fail.</p>
+
+<h4>
+<a name="damage-method" class="anchor" href="#damage-method"><span class="octicon octicon-link"></span></a>Damage method:</h4>
+
+<p>Method used for calculate and show damage.</p>
+
+<p><strong>damage(params, ParamsSkill, showlog):</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="nx">system</span><span class="p">.</span><span class="nx">damage</span><span class="p">({</span>
+        <span class="c1">// this example is for a (2d6+2) + 1d4-3</span>
+        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
+        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">),</span> 
+    <span class="kc">true</span>
+<span class="p">);</span>
+
+</pre></div>
+
+<p><strong>Parameters</strong></p>
+
+<p><code>params</code>: Basic parameters. Multiple dices, mods an rolls can be defined</p>
+
+<ul>
+<li>
+<code>Sides</code>: Define dices sides.</li>
+<li>
+<code>ModDamage</code>: Set a bonification or a penalty to the result. Is applied at the end of the roll.</li>
+<li>
+<code>ParamSkill</code>: Method Skill() can be passed, passing an object with the roll result (see skill method and the object returned).</li>
+<li>
+<code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code>
+</li>
+</ul><h4>
+<a name="armor-method--wip" class="anchor" href="#armor-method--wip"><span class="octicon octicon-link"></span></a>Armor method ~ WIP</h4>
+
+<p>Used to calculate armor protection (damage absorption). In actual version of DiceRoller, damage is calculate as a "generic" damage, doesn´t differ from magic or elemental damage.</p>
+
+<h6>
+<a name="armor-settings" class="anchor" href="#armor-settings"><span class="octicon octicon-link"></span></a>Armor settings:</h6>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">physic</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">DamageReduction</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Damage Reduction'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">arcane</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Arcane'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">fire</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Fire'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">frost</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Frost'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">electric</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Electric'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">poison</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Poison'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">3</span> <span class="p">}</span> <span class="p">]</span>
+<span class="p">};</span>
+
+</pre></div>
+
+<p>The code from above prepares a object with an array of data, putting generic types of damage in almost all rolgames.</p>
+
+<h5>
+<a name="parameters-of-armor-object" class="anchor" href="#parameters-of-armor-object"><span class="octicon octicon-link"></span></a>Parameters of armor object:</h5>
+
+<ul>
+<li>
+<code>Name</code>: Name showed on the log.</li>
+<li>
+<code>Sides</code>: Sides of the Dice Armor.</li>
+<li>
+<code>Fixed</code>: Bonificator or penalty for the dice result.</li>
+<li>
+<code>Rolls</code>: How many rolls per dice.</li>
+</ul><p>Setting Sides at 0 doesn´t skip armor calculation, cause the game system maybe uses fixed values of damage reduction.</p>
+
+<p><strong>Armor(ArmorParams, FullDamage, Showlog);</strong></p>
+
+<div class="highlight highlight-javascript"><pre>
+<span class="c1">//combined skill() result with damage() and armor()</span>
+
+<span class="kd">var</span> <span class="nx">DmgResult</span> <span class="o">=</span> <span class="nx">system</span><span class="p">.</span><span class="nx">damage</span><span class="p">({</span>
+        <span class="c1">// this example is for a (2d6+2) + 1d4-3</span>
+        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
+        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span> <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">),</span> 
+    <span class="kc">true</span>
+<span class="p">);</span>
+
+<span class="nx">system</span><span class="p">.</span><span class="nx">armor</span><span class="p">(</span><span class="nx">armor</span><span class="p">,</span> <span class="nx">DmgResult</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+
+</pre></div>
+
+<p><strong>Parameters</strong></p>
+
+<ul>
+<li>
+<code>armor</code>: Described above in "Armor Settings".</li>
+<li>
+<code>DmgResult</code>: Damage calculated from damage()</li>
+<li>
+<code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code>
+</li>
+</ul>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Diceroller maintained by <a href="https://github.com/Derenhein">Derenhein</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
