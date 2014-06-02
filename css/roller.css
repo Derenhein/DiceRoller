@@ -18,13 +18,11 @@
 .lbox[href]:focus {
 	color: #fff;
 	text-decoration: none;
-	cursor: pointer;
 	}
 .lbox:hover,
 .lbox:focus {
 	color: #fff;
 	text-decoration: none;
-	cursor: pointer;
 	border: 1px solid #535353;
 	transition: border-color .2s linear, color .3s;
 }

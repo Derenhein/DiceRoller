@@ -1,3 +1,17 @@
+/* Well, first my apologies for my english, as is not my first languaje, and can be
+ * very weird sometimes (and google translator may help, but sometimes can be... ridiculous).
+ *
+ * This libray is written in javascript (no plugins), as a learning proyect, i never code before
+ * (not at this grade).
+ *
+ * Be prepared...
+ *
+ * Faulty code is coming!!
+ *
+ * P.D: eventually, all coments will be translated to english, sometimes, is easyer for me
+ * doing at first in spanish.
+ */
+
 (function (window, undefined) {
 	'use strict';
 
@@ -9,60 +23,185 @@
 
 	var Libs = function (params) {
 
-		// Tipo de dado que se va a usar
+		/**
+		 * Standar dice sides. Set 6 for a six sides dice, 100 for a D100, 8 for a D8, etc
+		 * This sets the main dice for the game system.
+		 * @type {[integer]}
+		 */
 		this.DiceSides				= params.DiceSides || 6;
 
-		//Sistema percentil o por puntos
+		/**
+		 * On true setted, means "params.DiceSides" is set to 100. Game system will setted
+		 * to a percentual system, with rolls from 01% to 00 ( 100% ).
+		 *
+		 * If setted to false, means a game system difficulty like D&D, D6 system or MERPS
+		 * @type boolean
+		 */
 		this.Percentual				= params.Percentual;
 
-		// Habilidad que se va a usar como base para la tirada de acierto
-		this.BaseSkill				= params.BaseSkill || 100;
+		/**
+		 * Default punctuation of a skill for rolls setted to default.
+		 * @type {integer}
+		 */
+		this.BaseSkill				= params.BaseSkill || 50;
 
-		// Bonificador a la habilidad
+		/**
+		 * Need to set some default bonus for the roll? maybe on this game scene all party
+		 * have some bonifications in their skills
+		 * @type {integer}
+		 */
 		this.BonusSkill				= params.BonusSkill || 0;
 
 		// Penalizado a la habilidad
+		/**
+		 * Same as BonusSkill, but with a penalty. Both (bonus and penalty) can be setted.
+		 * @type {integer}
+		 */
 		this.BonusPenalty			= params.BonusPenalty || 0;
 
 		// Porcentaje de habilidad usada para crítico
+		/**
+		 * Used primary on game systems using a percentage from skill to find critical
+		 * possibilities. Games like BRP or based in, uses a percentage like 10% of skill
+		 *
+		 * Example: Skill 50, Critical Treshold 10 (means 10%)
+		 *
+		 * 50/10 = 5, from 01 to 5 are critical rolls
+		 *
+		 * @type {[integer]}
+		 */
 		this.CriticalTreshold		= params.CriticalTreshold || 10;
 
 		// Multiplicador de daño en crítico
+		/**
+		 * Damage multiplier on crítical rolls. Setted by default to 2 as a "x2"
+		 * damage multiplier.
+		 *
+		 * Set to 1 if don´t need damage multiplier
+		 *
+		 * @type {integer}
+		 */
 		this.CriticalMultiplier		= params.CriticalMultiplier || 2;
 
-		// Crítico ignora armadura
+		/**
+		 * Critical hits in combat ignores armor? set to true.
+		 *
+		 * @type {number}
+		 */
 		this.CriticalPierceArmor	= params.CriticalPierceArmor;
 
-		// BRP viejas ediciones, tirada especial
+		/**
+		 * Some BRP editions or games based on it, uses a "better roll" system
+		 * called "special". Set to true if need it on your game system.
+		 *
+		 * @type {[boolean]}
+		 */
 		this.SpecialRoll			= params.SpecialRoll;
 
-		// Especial, multiplicador al daño
+		/**
+		 * As critical, Special may augment damage from weapons. Setted by default
+		 * with a +50% damage ( x1.5 )
+		 *
+		 * @type {[number]}
+		 */
 		this.SpecialRollMultiplier	= params.SpecialRollMultiplier || 1.5;
 
-		// BRP, umbral para especial (en porcentaje)
+		/**
+		 * Pretty much like CriticalRollTreshold, better an example for undertand it
+		 * Using CríticalRollTreshold as example:
+		 *
+		 * 50 / 10 = 5 as crítical
+		 * 50 / 20 = 10 as special
+		 *
+		 * Means from 01 to 05 are crítical roll, but 06 to 10 are special. Not 06 to 10
+		 *
+		 * @type {integer}
+		 */
 		this.SpecialRollTreshold	= params.SpecialRollTreshold || 20;
 
-		// BRP, especial ignora armadura
+		/**
+		 * Damage ignores armor on Special rolls? set to true
+		 *
+		 * @type {[boolean]}
+		 */
 		this.SpecialRollPierceArmor	= params.SpecialRollPierceArmor;
 
-		// Pífia, true : se considera pífia, false : sin pífias
+		/**
+		 * What is better than a fail? an EPIC FAIL. Set to true for habilitate
+		 * this feature
+		 *
+		 * @type {[boolean]}
+		 */
 		this.EpicFail				= params.EpicFail;
 
-		// Porcentaje para obtener la pifia.
+		/**
+		 * As Critical Roll Treshold and Special, this is the percentage to find
+		 * your Epic Fail
+		 *
+		 * Ok, is very inexact, cause as skill grow in punctuation, Epic Fail will too,
+		 * need to rework a little.
+		 *
+		 * On a 50 base skill : 50 / 10 = 5, this is equal to 96% to 100% on a percentile
+		 * system
+		 *
+		 * @type {[integer]}
+		 */
 		this.EpicFailTreshold		= params.EpicFailTreshold || 10;
 
-		// Límite máximo de la pífia
+		/**
+		 * As EpicFailTreshold may be innacurate, can be setted a range wiht
+		 * epicFailMax Treshold.
+		 *
+		 * Using a example on percentile game system, a range between two numbers
+		 * can be used as MaxTreshold 100 (00 on a real dice roll) and 96.
+		 *
+		 * All rolls between 96 and 100 are Epic Fail.
+		 *
+		 * For non range numbers (maybe only 00 on real dice?), set mínimal and max to 100
+		 *
+		 * @type {[integer]}
+		 */
 		this.EpicFailMaxTreshold	= params.EpicFailMaxTreshold || 96;
 
-		// BRP, Límitie mínimo de la pífia
+		/**
+		 * Read avobe for further explanation
+		 *
+		 * @type {[number]}
+		 */
 		this.EpicfailMinTreshold	= params.EpicfailMinTreshold || 100;
 
-		// true : Tirada abierta, false : una tirada única
+		/**
+		 * Some game system uses "open rolls". By default at the moment, this plugin
+		 * only support MERP rules of open rolls.
+		 *
+		 * Open roll, means when a roll reaches certain range, dice will be rolled again,
+		 * and the new result will be added to the first one.
+		 * But if this new roll result is in the same range, is rolled again as many times
+		 * as the result falls in the open roll range (and this ressults added to the first)
+		 *
+		 * @type {[boolean]}
+		 */
 		this.OpenRoll				= params.OpenRoll;
 
-		// ID del textarea donde se añadirá los sucesos.
+		/**
+		 * Every method have a "show roll logs", putting all results, mods and information
+		 * relative to in a div with an ID.
+		 *
+		 * This HTML ID can be defined here, or use default one 'RolBox'
+		 *
+		 * @type {[string]}
+		 */
 		this.HistoryBox				= params.HistoryBox || 'RollBox';
 
+		/**
+		 * Well, this is the random number generator, usign javascript Math.random.
+		 * May be isn´t the better random generator (or true random), may in the future
+		 * improve it
+		 *
+		 * @param  {[integer]} sides [Sides of dice used to roll]
+		 * @param  {[integer]} rolls [How many rolls]
+		 * @return {[Array]}       	 [Returns an array with all dice rolls ]
+		 */
 		this.roller = function (sides, rolls){
 			var Result			= [];
 
@@ -315,7 +454,7 @@
 
 					for ( i =  0; i <= RollArray.length - 1; i++ ) {
 						if( i === 0 ){
-							template.innerHTML += ['&nbsp; <span class="lbox lbox-info"> Open Roll!</span>',
+							template.innerHTML += ['<span class="lbox lbox-info"> Open Roll!</span>',
 													'&nbsp; <span class="lbox lbox-default">',
 													RollArray[i] + '</span>'
 													].join('\n');
@@ -446,7 +585,6 @@
 
 			}
 
-
 			d.appendChild(template);
 
 			// Con esta línea de código, hacemos que el resultado no sea tapado por el overflow.
@@ -454,7 +592,7 @@
 
 			return RollsObj;
 		},
-		armor: function( ArmorParams, FullDamage, showlog ){
+		armor: function( ArmorParams, FullDamage ){
 			var ID			= this.HistoryBox,
 				d			= document.getElementById(ID),
 				template	= document.createElement('p'),
@@ -462,76 +600,136 @@
 				TempArmor	= 0,
 				FDamage		= 0;
 
-			for( var params in ArmorParams ) {
-				if( ArmorParams.hasOwnProperty(params) ){
-					for( var paramskey in ArmorParams[params] ) {
-						if( ArmorParams[params][paramskey].Sides > 0 ){
+			function PrepareObj( ArmorParams, FullDamage ){
+				var obj1 = {},
+					obj2 = {};
 
-							template.innerHTML +=	[	'<span class="lbox lbox-info">'+ ArmorParams[params][paramskey].Name +' Armor </span>',
-														'&nbsp; '+ ArmorParams[params][paramskey].Rolls + 'd' + ArmorParams[params][paramskey].Sides,
-													].join('\n');
+				for ( var params in ArmorParams ) {
+					if ( ArmorParams.hasOwnProperty(params) ){
+						for ( var params2 in ArmorParams[params]) {
 
-							RollArmor = this.roller( ArmorParams[params][paramskey].Sides, ArmorParams[params][paramskey].Rolls );
-
-							if( RollArmor.length > 1 ) {
-
-								for ( var z = 0; z < RollArmor.length; z++ ) {
-									TempArmor += parseInt( RollArmor[z], 10 );
-								}
-								template.innerHTML += [	'&nbsp : &nbsp<span class="lbox lbox-info">Dice Armor: ' + TempArmor + '</span>',
-														'&nbsp + &nbsp<span class="lbox lbox-info">Fixed Armor: ' + ArmorParams[params][paramskey].Fixed + '</span>',
-														'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + ( parseInt(TempArmor, 10) + parseInt(ArmorParams[params][paramskey].Fixed, 10) ),
-														'</span></br>'
-													].join('\n');
-								TempArmor = 0;
-							} else {
-								template.innerHTML += [	'&nbsp : &nbsp<span class="lbox lbox-info">Dice Armor: ' + RollArmor + '</span>',
-														'&nbsp + &nbsp<span class="lbox lbox-info">Fixed Armor: ' + ArmorParams[params][paramskey].Fixed + '</span>',
-														'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + ( parseInt(RollArmor, 10) + parseInt(ArmorParams[params][paramskey].Fixed, 10) ),
-														'</span></br>'
-													].join('\n');
-							}
-						}// if
-
-						if ( ArmorParams[params][paramskey].Sides === 0 && ArmorParams[params][paramskey].Fixed > 0 ){
-
-							template.innerHTML += [		'<span class="lbox lbox-info">'+ ArmorParams[params][paramskey].Name +' Armor </span>',
-														'&nbsp<span class="lbox lbox-info">Fixed Armor: ' + ArmorParams[params][paramskey].Fixed + '</span>',
-														'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + ArmorParams[params][paramskey].Fixed,
-														'</span></br>'
-													].join('\n');
-						}// if
-					}// for
-				}// if
-			}// for
-
-			/*for ( var DmgParams in FullDamage ) {
-				if ( FullDamage.hasOwnProperty(DmgParams) ) {
-					if ( FullDamage[DmgParams].Damage.length > 1 ) {
-
-						for ( var dmg = 0; dmg < FullDamage[DmgParams].Damage.length; dmg++ ) {
-							FDamage += FullDamage[DmgParams].Damage[dmg];
+								var key = ArmorParams[params][params2].Name.toLowerCase();
+								obj1[key] = {
+									Name	: ArmorParams[params][params2].Name.toLowerCase(),
+									Sides	: ArmorParams[params][params2].Sides,
+									Rolls	: ArmorParams[params][params2].Rolls,
+									Fixed	: ArmorParams[params][params2].Fixed
+								};
 						}
-						template.innerHTML += 	[	'<span class="lbox lbox-info"> Damage : </span>',
-													'&nbsp;'+ FullDamage[DmgParams].Rolls + 'd' + FullDamage[DmgParams].Sides,
-													'&nbsp; = &nbsp; <span class="lbox lbox-success">Total &nbsp;' + FDamage + '</span>',
-													'</br>'
-												].join('\n');
-						FDamage = 0;
-					} else {
-
-						template.innerHTML += 	[	'<span class="lbox lbox-info"> Damage : </span>',
-													'&nbsp;'+ FullDamage[DmgParams].Rolls + 'd' + FullDamage[DmgParams].Sides,
-													'&nbsp; = &nbsp; <span class="lbox lbox-success">Total &nbsp;' + FullDamage[DmgParams].Damage[0] + '</span>',
-													'</br>'
-												].join('\n');
-
-						FDamage = 0;
 					}
 				}
-			}// for*/
+				for ( var params in FullDamage ) {
+					if ( FullDamage.hasOwnProperty(params) ){
+						var key = FullDamage[params].TypeDamage.toLowerCase();
+						obj2[key] = {
+							Name	: FullDamage[params].TypeDamage.toLowerCase(),
+							Sides	: FullDamage[params].Sides,
+							Rolls	: FullDamage[params].Rolls,
+							Damage	: FullDamage[params].Damage
+						};
+					}
+				}
+				return { ArmorParams : obj1, FullDamage : obj2 };
+			}
 
+			var NewObj					= PrepareObj( ArmorParams, FullDamage ),
+				NewArmorParams			= NewObj.ArmorParams,
+				NewFullDamage			= NewObj.FullDamage,
+				TmpNewFullDamageArray	= 0;
 
+			var Calc_MyDamage = function( dice, fixed, damage ) {
+				if ( dice === undefined || dice === "" ) dice = 0;
+				return ( dice + fixed ) - damage;
+			}
+
+			for( var paramskey in NewArmorParams ){
+				if( NewArmorParams.hasOwnProperty( paramskey ) ) {
+					for( var params in NewFullDamage ) {
+						if( NewFullDamage.hasOwnProperty(params) ){
+
+							RollArmor = this.roller( NewArmorParams[paramskey].Sides, NewArmorParams[paramskey].Rolls );
+
+							try {
+								if( NewArmorParams[paramskey].Name === NewFullDamage[params].Name &&
+									NewArmorParams[paramskey].Sides > 0 &&
+									NewArmorParams[paramskey].Rolls > 0
+									) {
+
+									template.innerHTML +=	[	'<span class="lbox lbox-info">'+ NewArmorParams[paramskey].Name +' Armor',
+																'&nbsp; '+ NewArmorParams[paramskey].Rolls + 'd' + NewArmorParams[paramskey].Sides,
+																'</span>'
+														].join('\n');
+
+									if( NewFullDamage[params].Damage.length > 1 ){
+
+										TmpNewFullDamageArray = 0;
+
+										for (var index = 0; index < NewFullDamage[params].Damage.length; index++) {
+											TmpNewFullDamageArray += NewFullDamage[params].Damage[index];
+										}
+									}
+
+									if( RollArmor.length > 1 ) {
+
+										for ( var z = 0; z < RollArmor.length; z++ ) {
+											TempArmor += parseInt( RollArmor[z], 10 );
+										}
+										template.innerHTML += [	'&nbsp : &nbsp<span class="lbox lbox-default">Dice Armor: ' + TempArmor + '</span>',
+																'&nbsp + &nbsp<span class="lbox lbox-default">Fixed Armor: ' + NewArmorParams[paramskey].Fixed + '</span>'
+															].join('\n');
+										if ( NewFullDamage[params].Damage.length > 1 ){
+											template.innerHTML += [	'&nbsp - &nbsp<span class="lbox lbox-warning">Damage incoming: ' + TmpNewFullDamageArray + '</span>',
+																	'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + Calc_MyDamage(TempArmor, NewArmorParams[params].Fixed, TmpNewFullDamageArray ),
+																	'</span></br>'
+																].join('\n');
+										} else {
+											template.innerHTML += [	'&nbsp - &nbsp<span class="lbox lbox-warning">Damage incoming: ' + NewFullDamage[params].Damage + '</span>',
+																	'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + Calc_MyDamage(TempArmor, NewArmorParams[params].Fixed, NewFullDamage[params].Damage ),
+																	'</span></br>'
+																].join('\n');
+										}
+										TempArmor = 0;
+									} else {
+										template.innerHTML += [	'&nbsp : &nbsp<span class="lbox lbox-default">Dice Armor: ' + RollArmor + '</span>',
+																'&nbsp + &nbsp<span class="lbox lbox-default">Fixed Armor: ' + NewArmorParams[paramskey].Fixed + '</span>'
+																].join('\n');
+										if ( NewFullDamage[params].Damage.length > 1 ){
+											template.innerHTML += [	'&nbsp - &nbsp<span class="lbox lbox-warning">Damage incoming: ' + TmpNewFullDamageArray + '</span>',
+																'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + Calc_MyDamage(RollArmor, NewArmorParams[params].Fixed, TmpNewFullDamageArray),
+																'</span></br>'
+															].join('\n');
+										} else {
+											template.innerHTML += [	'&nbsp - &nbsp<span class="lbox lbox-warning">Damage incoming: ' + NewFullDamage[params].Damage + '</span>',
+																'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + Calc_MyDamage(RollArmor, NewArmorParams[params].Fixed, NewFullDamage[params].Damage),
+																'</span></br>'
+															].join('\n');
+										}
+									} //else
+
+								} else if ( NewArmorParams[paramskey].Rolls === 0 &&
+											NewArmorParams[paramskey].Sides === 0 &&
+											NewArmorParams[paramskey].Fixed > 0 &&
+											NewArmorParams[paramskey].Name === NewFullDamage[params].Name ){
+
+									template.innerHTML += [			'<span class="lbox lbox-info">'+ NewArmorParams[params].Name +' Armor </span>',
+																	'&nbsp<span class="lbox lbox-default">Fixed Armor: ' + NewArmorParams[params].Fixed + '</span>',
+																	'&nbsp + &nbsp<span class="lbox lbox-warning">Damage incoming: ' + NewFullDamage[paramskey].Damage + '</span>',
+																	'&nbsp = &nbsp<span class="lbox lbox-success"> Total: ' + ( NewArmorParams[params].Fixed -  NewFullDamage[paramskey].Damage),
+																	'</span></br>'
+																].join('\n');
+								}
+								else if ( NewArmorParams[paramskey].Name !== NewFullDamage[params].Name) {
+									continue;
+								}
+
+							} catch (event) {
+									console.log(event);
+							} //catch
+						}
+					}
+
+				} // if NewFulldamage
+			} // for NewFulldamage
 
 			if ( showlog ) {
 
@@ -629,7 +827,8 @@
 					Rolls		: params.Rolls[q],
 					Damage		: DamageRollResult[q],
 					Critical	: ParamsSkill.Critical,
-					Special		: ParamsSkill.Special
+					Special		: ParamsSkill.Special,
+					TypeDamage	: params.TypeDamage[q]
 				};
 
 			}
@@ -691,7 +890,8 @@
 
 							template.innerHTML += [	'<span class="lbox lbox-warning"> Critical x'+ this.CriticalMultiplier +'</span>',
 													'<span class="lbox lbox-default">Rolls for a  : &nbsp;',
-													SplitedDamage + '</span>'
+													SplitedDamage + '</span>',
+													'<span class="lbox lbox-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 												].join('\n');
 
 						} else if ( ParamsSkill.Special ) {
@@ -703,7 +903,8 @@
 
 							template.innerHTML += [	'<span class="lbox lbox-warning"> Special x'+ this.SpecialRollMultiplier +'</span>',
 													'<span class="lbox lbox-default">Rolls for a  : &nbsp;',
-													SplitedDamage + '</span>'
+													SplitedDamage + '</span>',
+													'<span class="lbox lbox-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 												].join('\n');
 
 						} else {
@@ -713,7 +914,8 @@
 							SumRolls = parseInt( SumDamageArray[j], 10) + parseInt(params.ModDamage[j], 10 );
 
 							template.innerHTML += [	'<span class="lbox lbox-default">Rolls for : &nbsp;',
-													SplitedDamage + '</span>'
+													SplitedDamage + '</span>',
+													'<span class="lbox lbox-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 												].join('\n');
 						}
 
@@ -896,11 +1098,7 @@
 				}// if
 			}// for
 
-			if ( showlog ) {
-
-				d.appendChild(template);
-
-			}
+			d.appendChild(template);
 
 			// Con esta línea de código, hacemos que el resultado no sea tapado por el overflow.
 			d.scrollTop = d.scrollHeight;

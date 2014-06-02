@@ -28,6 +28,8 @@ window.onload = function () {
 
 	};
 
+	var system = D(dsystem);
+
 	var magik = {
 			arcane : [ { Name: 'Arcane', Sides : 6, Fixed : 1, Rolls : 1 } ],
 			fire : [ { Name: 'Fire', Sides: 10, Fixed : 0, Rolls : 1 } ],
@@ -37,13 +39,13 @@ window.onload = function () {
 	};
 
 	var armor = {
-			physic : [ { Name: 'Physic', Sides : 6, Fixed : 1, Rolls : 1 } ],
-			DamageReduction : [ { Name: 'Damage Reduction', Sides : 0, Fixed : 1, Rolls : 1 } ],
-			arcane : [ { Name: 'Arcane', Sides : 6, Fixed : 1, Rolls : 1 } ],
+			physic : [ { Name: 'Physic', Sides : 6, Fixed : 2, Rolls : 1 } ],
+			dmgreduction : [ { Name: 'Damage Reduction', Sides : 0, Fixed : 1, Rolls : 1 } ],
+			arcane : [ { Name: 'Arcane', Sides : 8, Fixed : 1, Rolls : 3 } ],
 			fire : [ { Name: 'Fire', Sides : 10, Fixed : 0, Rolls : 1 } ],
 			frost : [ { Name: 'Frost', Sides : 6, Fixed : 0, Rolls : 2 } ],
-			electric : [ { Name: 'Electric', Sides : 0, Fixed : 4, Rolls : 1 } ],
-			poison : [ { Name: 'Poison', Sides : 0, Fixed : 1, Rolls : 3 } ]
+			electric : [ { Name: 'Electric', Sides : 0, Fixed : 4, Rolls : 0 } ],
+			poison : [ { Name: 'Poison', Sides : 0, Fixed : 1, Rolls : 0 } ]
 		};
 
 
@@ -51,6 +53,10 @@ window.onload = function () {
 	var listenclick2 = document.getElementById('button2');
 	var listenclick3 = document.getElementById('button3');
 	var listenclick4 = document.getElementById('button4');
+	var listenclick5 = document.getElementById('button5');
+	var listenclick6 = document.getElementById('button6');
+	var listenclick6 = document.getElementById('button6');
+
 	var listencheckbox1 = document.getElementById('ChkTechDamage');
 
 	listenclick1.addEventListener('click',function(){
@@ -69,22 +75,15 @@ window.onload = function () {
 
 	}, true);
 	listenclick3.addEventListener('click',function(){
-		dsystem.Percentual = true;
+		system.Percentual = true;
 
 		//var SkillResult = D(dsystem).skill(1,0,10,false,false);
-
-		/*var DmgResult = D(dsystem).damage({
-			Sides : [ 100, 100, 8, 4 ],
-			ModDamage: [ 20, -25, -1, -3 ],
-			Rolls: [ 2, 1, 2, 1 ]
-		}, SkillResult, true);*/
-
-	var system = D(dsystem);
 
 		var DmgResult = system.damage({
 			Sides : [ 100, 100, 8, 4 ],
 			ModDamage: [ 20, -25, -1, -3 ],
-			Rolls: [ 2, 1, 2, 1 ]
+			Rolls: [ 2, 1, 2, 1 ],
+			TypeDamage:['Physic', 'arcane', 'fire', 'poison']
 		},
 			system.skill(1,0,10,false,false), true);
 
@@ -137,18 +136,48 @@ window.onload = function () {
 		console.log(this.id);
 
 		if( this.checked === true ) {
-			//magik[this.id] = parseInt(document.getElementById('DamageTechDice').value, 10);
-			if( magik['DamageTechDice'] === 0 || magik['DamageTechDice'] === '' || magik['DamageTechDice'] === undefined || magik['DamageTechDice'].length === 0 ) {
-				this.value = 0;
-				console.log(this.value);
-			}
 			magik['DamageTechDice'] = +document.getElementById('DamageTechDice').value;
 			magik['DamageTechFixed'] = +document.getElementById('DamageTechFixed').value;
 			magik['DamageTechRoll'] = +document.getElementById('DamageTechRoll').value;
-			console.log(magik);
 		}
 
 	});
 
+	listenclick5.addEventListener('click', function(){
+
+		system.damage({
+			Sides : 100,
+			ModDamage: 10,
+			Rolls: 1
+		},
+			system.skill(1,0,10,false,false), true);
+
+	}, true);
+
+	listenclick6.addEventListener('click', function(){
+
+		/**
+		 * damage result format
+		 *
+		 * RollsObj = {
+			Roll : RollResult[0],
+			Critical : true,
+			Special: false,
+			EpicFail: false,
+			Fail: false
+		};
+		 */
+
+		var DmgResult = {
+			Roll : 20,
+			Critical : true,
+			Special: false,
+			EpicFail: false,
+			Fail: false
+		};
+
+		system.armor(armor, DmgResult, true);
+
+	});
 
 };
