@@ -7,25 +7,58 @@
  * Be prepared...
  *
  * Faulty code is coming!!
+ *
+ * P.D: eventually, all coments will be translated to english, sometimes, is easyer for me
+ * doing at first in spanish.
  */
 
-(function (window, undefined) {
+;(function (window, undefined) {
 	'use strict';
 
 	console.log('diceroller.js');
 
 	var D = function (params) {
+
+		if (!params) {
+			//console.log("no params");
+
+			var	ParamsDefault = {
+
+					DiceSides				: 100,
+					Percentual				: true,
+					BaseSkill				: 0,
+					OpenRoll				: false,
+					BonusSkill				: 0,
+					HistoryBox				: 'RollBox',
+					CriticalTreshold		: 0,
+					CriticalMultiplier		: 2,
+					CriticalPierceArmor		: false,
+					SpecialRoll				: false,
+					SpecialRollMultiplier	: 1,
+					SpecialRollTreshold		: 0,
+					SpecialRollPierceArmor	: false,
+					EpicFail				: true,
+					EpicFailTreshold		: 0,
+					EpicFailMaxTreshold		: 100,
+					EpicFailMinTreshold		: 100
+
+				};
+
+			params = ParamsDefault;
+		}
+
 		return new Libs(params);
 	};
 
 	var Libs = function (params) {
+
 
 		/**
 		 * Standar dice sides. Set 6 for a six sides dice, 100 for a D100, 8 for a D8, etc
 		 * This sets the main dice for the game system.
 		 * @type {[integer]}
 		 */
-		this.DiceSides				= params.DiceSides || 6;
+		this.DiceSides                = params.DiceSides;
 
 		/**
 		 * On true setted, means "params.DiceSides" is set to 100. Game system will setted
@@ -40,21 +73,21 @@
 		 * Default punctuation of a skill for rolls setted to default.
 		 * @type {integer}
 		 */
-		this.BaseSkill				= params.BaseSkill || 50;
+		this.BaseSkill				= params.BaseSkill;
 
 		/**
 		 * Need to set some default bonus for the roll? maybe on this game scene all party
 		 * have some bonifications in their skills
 		 * @type {integer}
 		 */
-		this.BonusSkill				= params.BonusSkill || 0;
+		this.BonusSkill				= params.BonusSkill;
 
 		// Penalizado a la habilidad
 		/**
 		 * Same as BonusSkill, but with a penalty. Both (bonus and penalty) can be setted.
 		 * @type {integer}
 		 */
-		this.BonusPenalty			= params.BonusPenalty || 0;
+		this.BonusPenalty			= params.BonusPenalty;
 
 		// Porcentaje de habilidad usada para crítico
 		/**
@@ -67,7 +100,7 @@
 		 *
 		 * @type {[integer]}
 		 */
-		this.CriticalTreshold		= params.CriticalTreshold || 10;
+		this.CriticalTreshold		= params.CriticalTreshold;
 
 		// Multiplicador de daño en crítico
 		/**
@@ -78,7 +111,7 @@
 		 *
 		 * @type {integer}
 		 */
-		this.CriticalMultiplier		= params.CriticalMultiplier || 2;
+		this.CriticalMultiplier		= params.CriticalMultiplier;
 
 		/**
 		 * Critical hits in combat ignores armor? set to true.
@@ -101,7 +134,7 @@
 		 *
 		 * @type {[number]}
 		 */
-		this.SpecialRollMultiplier	= params.SpecialRollMultiplier || 1.5;
+		this.SpecialRollMultiplier	= params.SpecialRollMultiplier;
 
 		/**
 		 * Pretty much like CriticalRollTreshold, better an example for undertand it
@@ -114,7 +147,7 @@
 		 *
 		 * @type {integer}
 		 */
-		this.SpecialRollTreshold	= params.SpecialRollTreshold || 20;
+		this.SpecialRollTreshold	= params.SpecialRollTreshold;
 
 		/**
 		 * Damage ignores armor on Special rolls? set to true
@@ -143,7 +176,7 @@
 		 *
 		 * @type {[integer]}
 		 */
-		this.EpicFailTreshold		= params.EpicFailTreshold || 10;
+		this.EpicFailTreshold		= params.EpicFailTreshold;
 
 		/**
 		 * As EpicFailTreshold may be innacurate, can be setted a range wiht
@@ -158,14 +191,14 @@
 		 *
 		 * @type {[integer]}
 		 */
-		this.EpicFailMaxTreshold	= params.EpicFailMaxTreshold || 96;
+		this.EpicFailMaxTreshold	= params.EpicFailMaxTreshold;
 
 		/**
 		 * Read avobe for further explanation
 		 *
 		 * @type {[number]}
 		 */
-		this.EpicfailMinTreshold	= params.EpicfailMinTreshold || 100;
+		this.EpicfailMinTreshold	= params.EpicfailMinTreshold;
 
 		/**
 		 * Some game system uses "open rolls". By default at the moment, this plugin
@@ -188,7 +221,7 @@
 		 *
 		 * @type {[string]}
 		 */
-		this.HistoryBox				= params.HistoryBox || 'RollBox';
+		this.HistoryBox				= params.HistoryBox;
 
 		/**
 		 * Well, this is the random number generator, usign javascript Math.random.
@@ -589,7 +622,7 @@
 
 			return RollsObj;
 		},
-		armor: function( ArmorParams, FullDamage, showlog ){
+		armor: function( ArmorParams, FullDamage ){
 			var ID			= this.HistoryBox,
 				d			= document.getElementById(ID),
 				template	= document.createElement('p'),
@@ -604,14 +637,13 @@
 				for ( var params in ArmorParams ) {
 					if ( ArmorParams.hasOwnProperty(params) ){
 						for ( var params2 in ArmorParams[params]) {
-
-								var key = ArmorParams[params][params2].Name.toLowerCase();
-								obj1[key] = {
-									Name	: ArmorParams[params][params2].Name.toLowerCase(),
-									Sides	: ArmorParams[params][params2].Sides,
-									Rolls	: ArmorParams[params][params2].Rolls,
-									Fixed	: ArmorParams[params][params2].Fixed
-								};
+							var key = ArmorParams[params][params2].Name.toLowerCase();
+							obj1[key] = {
+								Name	: ArmorParams[params][params2].Name.toLowerCase(),
+								Sides	: ArmorParams[params][params2].Sides,
+								Rolls	: ArmorParams[params][params2].Rolls,
+								Fixed	: ArmorParams[params][params2].Fixed
+							};
 						}
 					}
 				}
@@ -728,19 +760,11 @@
 				} // if NewFulldamage
 			} // for NewFulldamage
 
-			if ( showlog ) {
 
-				d.appendChild(template);
+			d.appendChild(template);
 
-				// Con esta línea de código, hacemos que el resultado no sea tapado por el overflow.
-				d.scrollTop = d.scrollHeight;
+			d.scrollTop = d.scrollHeight;
 
-			} // showlog
-
-			/*var a = {};
-			 a['thisObj'] = this;
-			 a['Damage'] = FullDamage;
-			console.log(a);*/
 			return this;
 		},
 		/**
@@ -1020,91 +1044,131 @@
 
 			return FullDamage;
 		},
-		/* magic ( attacks, showlog )
-		 *
-		 * These are the standard magic damage used in this method. You maybe wants
-		 * to extend with new ones for your game system
-		 *
-		 * Basic magic damage: Arcane, Fire, Frost, Electric, Venom
-		 *
-		 * Standard nomenclature:
-		 *
-		 * 	arcane : [
-		 *		{
-		 *			Name 	: 'Arcane',
-		 *			Sides 	: 6,
-		 *			Fixed 	: 1,
-		 *			Rolls 	: 1
-		 *		}
-		 *	],
-		 *	fire : [
-		 *		{
-		 *			Name 	: 'Fire',
-		 *			Sides 	: 6,
-		 *			Fixed 	: 1,
-		 *			Rolls 	: 1
-		 *		}
-		 *	],
-		 *	etc...
-		 *
-		 * IMPORTANT: "Fixed" (refering to a fixed bonus or malus ) is applyed at
-		 * the end of the dice roll, but only ONCE, not for every dice.
-		 *
-		 * The literal "Name", is for better and easy form of handling and taggin
-		 * the name or title of the magic property.
-		 *
-		 */
-		magic: function( attacks, showattack, magik, showlog ) {
-			var DamageRollResult	= [],
-				i					= 0,
-				ID					= this.HistoryBox,
-				d					= document.getElementById(ID),
-				template			= document.createElement('p'),
-				TempDamage			= [],
-				DamageResult		= 0;
+		d20 : function(params){
+			var	ID				= this.HistoryBox,
+				d				= document.getElementById(ID),
+				template		= document.createElement('p'),
+				ArrayRolls		= [],
+				Rolls			= [],
+				FormattedArray	= '';
 
-			for( var magprop in magik ) {
-				if ( magik.hasOwnProperty(magprop)  ) {
-					for ( var magpropkey in magik[magprop] ) {
+			var CalcCrit = function( Rolls ) {
+				var NewRoll		= [],
+					ArrayRoll	= Rolls;
 
-						TempDamage = this.roller( magik[magprop][magpropkey].Sides, magik[magprop][magpropkey].Rolls );
+				if( Rolls.length === 1 ) ArrayRoll.push(Rolls[0]);
 
-						if( TempDamage.length > 1 ){
+				NewRoll = this.roller( params.Sides, params.Rolls );
 
-							for ( var j = 0; j < TempDamage.length; j++ ) {
-								DamageResult += parseInt(TempDamage[j], 10);
-							}
+				if( Rolls[0] === 1 ) {
+					if ( NewRoll[0] === 1 && ArrayRoll.length <= 2 ) {
+						ArrayRoll.push( NewRoll[0] );
+						CalcCrit(ArrayRoll);
+					}
+				} else {
+					if ( NewRoll[0] === 20 && ArrayRoll.length >= 3 ) {
+						ArrayRoll.push( NewRoll[0] );
+						CalcCrit(ArrayRoll);
+					} else {
+						ArrayRoll.push( NewRoll[0] );
+					}
+				}
 
-								template.innerHTML += ['<span class="lbox lbox-info">'+ magik[magprop][magpropkey].Name +'</span>',
-													'&nbsp; : &nbsp;<span class="lbox lbox-primary">' + magik[magprop][magpropkey].Rolls + 'd' + magik[magprop][magpropkey].Sides + '</span>' ,
-													'&nbsp; + &nbsp; ' + magik[magprop][magpropkey].Fixed ,
-													'&nbsp; = &nbsp; <span class="lbox lbox-success">',
-													DamageResult + '</span></br>'
-													].join('\n');
+				return ArrayRoll;
 
-							} else {
+			}.bind(this);
 
-								template.innerHTML += ['<span class="lbox lbox-info">'+  magik[magprop][magpropkey].Name +'</span>',
-														'&nbsp; : &nbsp;<span class="lbox lbox-primary">' + magik[magprop][magpropkey].Rolls + 'd' + magik[magprop][magpropkey].Sides + '</span>',
-														'&nbsp; + &nbsp; ' + magik[magprop][magpropkey].Fixed ,
-														'&nbsp; = &nbsp; <span class="lbox lbox-success">',
-														TempDamage + '</span></br>'
-														].join('\n');
-							}// else
-					}// for
-				}// if
-			}// for
+			var StringFormat = function( ArrayRolls ) {
+				var re					= /,/g,
+					StringedArrayRolls	= 0,
+					SplitedArrayRolls	= 0,
+					newArrayRolls		= [];
 
-			if ( showlog ) {
+				StringedArrayRolls		= ArrayRolls.toString(),
+				SplitedArrayRolls		= StringedArrayRolls.replace(re,'&nbsp; & &nbsp;');
 
-				d.appendChild(template);
+				return SplitedArrayRolls;
 
+			};
+
+			template.innerHTML +=	[	'<span class="lbox lbox-info">Rolls a ',
+										params.Rolls + 'd' + params.Sides + '</span> &nbsp;',
+										'<span class="lbox lbox-default"> Difficulty of',
+										 params.Difficulty + '</span>'
+									].join('\n');
+
+
+			Rolls = this.roller(params.Sides, params.Rolls);
+
+			if( Rolls[0] > params.Difficulty && Rolls[0] < params.Critical ){
+
+				template.innerHTML += '&nbsp; <span class="lbox lbox-success">Success!! '+ Rolls[0] +'</span>';
+				console.log('Success ' + Rolls[0]);
+
+			} else if ( Rolls[0] >= params.Critical ) {
+
+					ArrayRolls.push(Rolls[0]);
+
+				if( Rolls[0] === 20 ){
+
+					ArrayRolls =  CalcCrit(Rolls);
+
+					console.log(ArrayRolls);
+				} else {
+
+					Rolls.length = 0;
+					Rolls = this.roller( params.Sides, params.Rolls );
+					ArrayRolls.push(Rolls[0]);
+
+				}
+
+				console.log(ArrayRolls);
+
+				if ( ArrayRolls[2] === 20 ) {
+				 	// Triple 20 Roll, best critical Roll
+					template.innerHTML += '&nbsp; <span class="lbox lbox-warning">Astonishing Critical!! ' + StringFormat(ArrayRolls) +'</span>';
+
+					console.log('Brutal!! three 20!! ' + ArrayRolls );
+
+				} else if ( ArrayRolls[0] < 20 && ArrayRolls[1] >= params.Critical && ArrayRolls[2] < params.Critical ) {
+					// Critical
+					template.innerHTML += '&nbsp; <span class="lbox lbox-success">Critical!! ' + StringFormat(ArrayRolls) +'</span>';
+
+					console.log('Critical! ' + ArrayRolls);
+
+				} else if ( ArrayRolls[0] >= params.Critical && ArrayRolls[1] >= params.Critical ) {
+					// Critical
+					template.innerHTML += '&nbsp; <span class="lbox lbox-success">Critical!! ' + StringFormat(ArrayRolls) +'</span>';
+
+					console.log('Critical! ' + ArrayRolls);
+				} else if ( ArrayRolls[1] < params.Critical ) {
+					// Simple success
+					template.innerHTML += '&nbsp; <span class="lbox lbox-success">Success!! ' + StringFormat(ArrayRolls) +'</span>';
+
+					console.log('Success! ' + ArrayRolls);
+				}
+
+			} else if ( Rolls[0] === 1 ) {
+
+				ArrayRolls = CalcCrit(Rolls);
+
+				if ( ArrayRolls[1] === 1 ) {
+
+					template.innerHTML += '&nbsp; <span class="lbox lbox-danger">Epic Fail!! ' + StringFormat(ArrayRolls) +'</span>';
+					console.log('Epic Fail!! ' + ArrayRolls);
+				} else {
+					template.innerHTML += '&nbsp; <span class="lbox lbox-danger">Fail!! ' + ArrayRolls +'</span>';
+					console.log('Fail!! ' + ArrayRolls);
+				}
+
+			} else {
+				template.innerHTML += '&nbsp; <span class="lbox lbox-danger">Faill!! ' + Rolls[0] +'</span>';
+				console.log('Fail! ' + Rolls[0]);
 			}
 
-			// Con esta línea de código, hacemos que el resultado no sea tapado por el overflow.
+			d.appendChild(template);
 			d.scrollTop = d.scrollHeight;
 
-			return this;
 		}
 	};
 

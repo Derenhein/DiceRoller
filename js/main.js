@@ -10,11 +10,11 @@ window.onload = function () {
 		BaseSkill: 50,
 		OpenRoll: true,
 		BonusSkill: 0,
-		HistoryBox: 'logbox',
+		HistoryBox: 'RollBox',
 
 		CriticalTreshold: 10,
-		CriticalMultiplier: 2, //multiplicador de daño en crítico
-		CriticalPierceArmor: true, //crítico ignora armadura
+		CriticalMultiplier: 2, //Critical damage multiplier
+		CriticalPierceArmor: true, //critical hits ignores armor
 
 		SpecialRoll: true,
 		SpecialRollMultiplier: 1.5,
@@ -23,8 +23,8 @@ window.onload = function () {
 
 		EpicFail: true,
 		EpicFailTreshold: 10,
-		EpicFailMaxTreshold: 96, // límite máximo de la pífia
-		EpicFailMinTreshold: 100 // límite mínimo de la pífia
+		EpicFailMaxTreshold: 96,
+		EpicFailMinTreshold: 100
 
 	};
 
@@ -55,7 +55,8 @@ window.onload = function () {
 	var listenclick4 = document.getElementById('button4');
 	var listenclick5 = document.getElementById('button5');
 	var listenclick6 = document.getElementById('button6');
-	var listenclick6 = document.getElementById('button6');
+	var listenclick7 = document.getElementById('button7');
+	var listenclick8 = document.getElementById('button8');
 
 	var listencheckbox1 = document.getElementById('ChkTechDamage');
 
@@ -156,18 +157,6 @@ window.onload = function () {
 
 	listenclick6.addEventListener('click', function(){
 
-		/**
-		 * damage result format
-		 *
-		 * RollsObj = {
-			Roll : RollResult[0],
-			Critical : true,
-			Special: false,
-			EpicFail: false,
-			Fail: false
-		};
-		 */
-
 		var DmgResult = {
 			Roll : 20,
 			Critical : true,
@@ -179,5 +168,25 @@ window.onload = function () {
 		system.armor(armor, DmgResult, true);
 
 	});
+
+	listenclick7.addEventListener('click', function(){
+		D().skill(1,0,10,50,50);
+
+	}, false);
+
+	listenclick8.addEventListener('click', function(){
+
+		var crit =  15;
+
+		D().d20({
+			Sides: 20,
+			Rolls: 1,
+			Mod: 0,
+			Difficulty: 10,
+			Critical: crit,
+			EpicFail: true
+		});
+
+	}, false);
 
 };
