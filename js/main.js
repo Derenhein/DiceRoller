@@ -57,6 +57,7 @@ window.onload = function () {
 	var listenclick6 = document.getElementById('button6');
 	var listenclick7 = document.getElementById('button7');
 	var listenclick8 = document.getElementById('button8');
+	var listenclick9 = document.getElementById('button9');
 
 	var listencheckbox1 = document.getElementById('ChkTechDamage');
 
@@ -158,11 +159,13 @@ window.onload = function () {
 	listenclick6.addEventListener('click', function(){
 
 		var DmgResult = {
-			Roll : 20,
-			Critical : true,
+			Damage: 15,
+			ModDamage: 20,
+			Rolls: 1,
+			Sides: 100,
+			Critical: true,
 			Special: false,
-			EpicFail: false,
-			Fail: false
+			TypeDamage: "Physic"
 		};
 
 		system.armor(armor, DmgResult, true);
@@ -181,12 +184,19 @@ window.onload = function () {
 		D().d20({
 			Sides: 20,
 			Rolls: 1,
-			Mod: 0,
-			Difficulty: 10,
+			Mod: 5,
+			Difficulty: 20,
 			Critical: crit,
 			EpicFail: true
 		});
 
 	}, false);
+
+	listenclick9.addEventListener('click', function(){
+		var critical = 10,
+			special = 20,
+			epicfail = 5;
+		D(dsystem).confront(15,25);
+	}, false );
 
 };
