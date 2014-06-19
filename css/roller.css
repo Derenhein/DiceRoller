@@ -1,7 +1,69 @@
 /**
  * CSS for Dice Roller Lib
  */
-
+.lround {
+	padding: 0.4em 0.6em 0.4em 0.6em;
+	border: 1px solid #C0C0C0;
+	-webkit-border-radius: 14px;
+	border-radius: 14px;
+	font: normal normal bold 14px/normal "Alef", Helvetica, sans-serif;
+	color: #ffffff;
+	-o-text-overflow: clip;
+	text-overflow: clip;
+	display: inline;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	line-height: 2.4;
+	font-weight: 700;
+}
+.lround:hover {
+	color: #fff;
+	text-decoration: none;
+	font: normal normal bold 18px/normal "Alef", Helvetica, sans-serif;
+	border: 2px solid #535353;
+	text-shadow: 1px 1px 2px #000000;
+	transition: border-color .2s linear, color .3s;
+}
+.lround:empty {
+	display: none;
+}
+.lround-default {
+	background-color: #B1B1B1;
+}
+.lround-default:hover {
+	background-color: #808080;
+}
+.lround-primary {
+	background-color: #31b0d5;
+}
+.lround-primary:hover {
+	background-color: #3071a9;
+}
+.lround-info {
+	background-color: #5bc0de;
+}
+.lround-info:hover {
+	background-color: #5bc0de;
+}
+.lround-danger {
+	background-color: #d9534f;
+}
+.lround-danger:hover {
+	background-color: #c9302c;
+}
+.lround-warning {
+	background-color: #ec971f;
+}
+.lround-warning:hover {
+	background-color: #ec971f;
+}
+.lround-success {
+	background-color: #5cb85c;
+}
+.lround-success:hover {
+	background-color: #449d44;
+}
 .lbox {
 	display: inline;
 	padding: 0.4em 0.6em 0.4em 0.6em;
@@ -14,13 +76,7 @@
 	vertical-align: baseline;
 	border: 1px solid #C0C0C0;
 }
-.lbox[href]:hover,
-.lbox[href]:focus {
-	color: #fff;
-	text-decoration: none;
-	}
-.lbox:hover,
-.lbox:focus {
+.lbox:hover {
 	color: #fff;
 	text-decoration: none;
 	border: 1px solid #535353;
@@ -36,42 +92,36 @@
 .lbox-default {
 	background-color: #999;
 }
-.lbox-default[href]:hover,
-.lbox-default[href]:focus {
+.lbox-default:hover {
 	background-color: #808080;
 }
 .lbox-primary {
 	background-color: #428bca;
 }
-.lbox-primary[href]:hover,
-.lbox-primary[href]:focus {
+.lbox-primary:hover {
 	background-color: #3071a9;
 }
 .lbox-success {
 	background-color: #5cb85c;
 }
-.lbox-success[href]:hover,
-.lbox-success[href]:focus {
+.lbox-success:hover {
 	background-color: #449d44;
 }
 .lbox-info {
 	background-color: #5bc0de;
 }
-.lbox-info[href]:hover,
-.lbox-info[href]:focus {
+.lbox-info:hover {
 	background-color: #31b0d5;
 }
 .lbox-warning {
 	background-color: #f0ad4e;
 }
-.lbox-warning[href]:hover,
-.lbox-warning[href]:focus {
+.lbox-warning:hover {
 	background-color: #ec971f;
 }
 .lbox-danger {
 	background-color: #d9534f;
 }
-.lbox-danger[href]:hover,
-.lbox-danger[href]:focus {
+.lbox-danger:hover {
 	background-color: #c9302c;
 }
