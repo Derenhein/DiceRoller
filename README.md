@@ -3,6 +3,8 @@ DiceRoller
 
 Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices
 
+As later version, diceroller.js relies on [**David Bau ** seedrandom.js](https://github.com/davidbau/seedrandom) for a better random number generation. Is a very little library ( 2kb minified ).
+
 ##Specifications:
 
 - Single o multi dice rolls
@@ -11,11 +13,10 @@ Little javascript library to help roll game players to make quick and easy web a
 
 ##Getting Starterd
 
-DiceRoller is a light and simple **javascript** library made for help DM and players develop tools for make life easyer.
+DiceRoller is a light and simple **javascript** library made for help DM and players develop tools for make life easyer. Is a standalone libray, with optional use of seedrandom.js for a better random number generation.
+For use dicerroller.js, other plugins aren´t required, only a little of time for set your game system.
 
-Made in javascript, don´t need other libreries like **JQuery**.
-
-At this time, i´m using **Bootstrap CSS** for easy styling, but is planned to develop a custom CSS.
+Two versions of diceroller.js will be supported. With [seedrandom](https://github.com/davidbau/seedrandom) and standalone without this plugin.
 
 ```html
 <!doctype html>
@@ -23,9 +24,9 @@ At this time, i´m using **Bootstrap CSS** for easy styling, but is planned to d
 	<head>
 		<meta charset="utf-8">
 		<title>DiceRoller</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/roller.css">
 		<script src="js/diceroller.js"></script>
+		<script src="js/seedrandom.js"></script> <!-- Optional -->
 	</head>
 	<body>
 		...content...
@@ -58,7 +59,8 @@ var GameSystem = {
 		EpicFail: true,
 		EpicFailTreshold: 10,
 		EpicFailMaxTreshold: 96,
-		EpicFailMinTreshold: 100
+		EpicFailMinTreshold: 100,
+		DirectFail : 96
 
 };
 
@@ -98,14 +100,16 @@ var GameSystem = {
 
 `EpicFailMinTreshold`: independently, a máximun range can be setted.
 
+`DirectFail`: Set a minimun range where all rolls are automatic fails.
+
 ##Using DiceRoller
 DiceRoller uses "D" as a prefix for invoking it, like this
 
-`D(gamesystem).roll(3,6,0);`
+`D().roll(3,6,0);`
 
 The example from avobe is a very simple method, invoking a 3 rolls of 6 sides dice and a 0 modifier (a bonification to the roll or a penalty);
 
-`D(gamesystem).roll(2,6,6);`
+`D().roll(2,6,6);`
 
 These other example does a 2d6+6 roll.
 
@@ -117,20 +121,32 @@ More comfortable form to use the same game system on every DiceRoller method is 
 
 var MySys = D(GameSystem);
 
-MySys.roll(2,6,6);
+MySys.skill(1,100,0,false,false);
 
 ```
+Or you can set two different game rules or conditions (no critical, different ranges of Critical Fail, etc).
+
 #### Skill method:
 
 Mainly used for skill rolls, like combat skill, jump, craft, riding, etc. Accepts extra parameters like a modification to the roll, punctuation of the skill and difficulty to overcome.
 
-**skill(rolls, sides, mod, skill, difficulty):**
+**skill( rolls, sides, mod, skill, difficulty ):**
 
 ```javascript
-
 //Makes 1d100 roll
 
+var GameSystem {
+	// Set your rules
+}
+var system = D(GameSystem); //catched version
+
 system.skill(1,100,0,false,false);
+
+// Non cached
+D(GameSystem)skill(1,100,0,false,false);
+
+//Default rules
+D()skill(1,100,0,false,false);
 
 ```
 
@@ -181,18 +197,41 @@ Method used for calculate and show damage.
 **damage(params, ParamsSkill, showlog):**
 
 ```javascript
+// Example for a 2d6+2 + 1d4-3
 
-system.damage({
-		// this example is for a (2d6+2) + 1d4-3
+// Using Skill() for a auto generate skill rolls
+
+D().damage({	
 		Sides : [ 6, 4 ],
 		ModDamage: [ 2, -3 ],
 		Rolls: [ 2,  1 ],
 		TypeDamage:['Physic', fire']
 	},
-	system.skill(1,100,0,false,false), 
+	D().skill(1,100,0,false,false), 
 	true
 );
 
+// Passing pre defined skill rolls
+
+var skill = {
+
+	Roll : [15],
+	Critical : true,
+	Special: false,
+	EpicFail: false,
+	Fail: false
+
+};
+
+D().damage({	
+		Sides : [ 6, 4 ],
+		ModDamage: [ 2, -3 ],
+		Rolls: [ 2,  1 ],
+		TypeDamage:['Physic', fire']
+	},
+	skill, 
+	true
+);
 ```
 
 **Parameters**
@@ -205,7 +244,7 @@ system.damage({
 
 - `Rolls`: Set how many rolls for dice.
 
-- `TypeDamage`: Label your damage type. Is important for logs and armor(), cause in some game systems, elemental or nos physical damage may need from specific armor against it.
+- `TypeDamage`: Label your damage type. Is important for logs and armor(), for matching this kind of damanges. Is ussual for some criaturas or high level characters to do multiple kind of damage (flaming swords, poisoned weapons, etc)-
 
 `ParamSkill`: Method Skill() can be passed, passing an object with the roll result (see skill method and the object returned).
 

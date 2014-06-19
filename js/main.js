@@ -24,19 +24,15 @@ window.onload = function () {
 		EpicFail: true,
 		EpicFailTreshold: 10,
 		EpicFailMaxTreshold: 96,
-		EpicFailMinTreshold: 100
+		EpicFailMinTreshold: 100,
+
+		DirectFail: 96,
+		TagElement : 'p',
+		StyleCSS : 'lround lround'
 
 	};
 
 	var system = D(dsystem);
-
-	var magik = {
-			arcane : [ { Name: 'Arcane', Sides : 6, Fixed : 1, Rolls : 1 } ],
-			fire : [ { Name: 'Fire', Sides: 10, Fixed : 0, Rolls : 1 } ],
-			frost : [ { Name: 'Frost', Sides : 6, Fixed : 0, Rolls : 2 } ],
-			electric : [ { Name: 'Electric', Sides : 4, Fixed : 4, Rolls : 1 } ],
-			poison : [ { Name: 'Poison', Sides : 6, Fixed : 1, Rolls : 3 } ]
-	};
 
 	var armor = {
 			physic : [ { Name: 'Physic', Sides : 6, Fixed : 2, Rolls : 1 } ],
@@ -64,22 +60,21 @@ window.onload = function () {
 	listenclick1.addEventListener('click',function(){
 		D(dsystem).roll(3,6,0);
 	}, true);
-	listenclick2.addEventListener('click',function(){
 
-		dsystem.Percentual = false;
-		/* dsystem.BaseSkill = 99;
-		dsystem.CriticalTreshold = 20;
-		dsystem.EpicFailTreshold = 10;*/
-		//dsystem.EpicFailMaxTreshold = 96;
-
-		//D(dsystem).skill(1,0,10,false);
-		D(dsystem).skill(1,0,10,50,50);
+	listenclick2.addEventListener('click', function(){
+		system.Percentual = false;
+		system.damage({
+			Sides : 20,
+			ModDamage: 10,
+			Rolls: 1,
+			TypeDamage:'Physic'
+		},
+			system.skill(1,0,10,false,false), true);
 
 	}, true);
-	listenclick3.addEventListener('click',function(){
-		system.Percentual = true;
 
-		//var SkillResult = D(dsystem).skill(1,0,10,false,false);
+	listenclick3.addEventListener('click',function(){
+		system.Percentual = false;
 
 		var DmgResult = system.damage({
 			Sides : [ 100, 100, 8, 4 ],
@@ -92,71 +87,8 @@ window.onload = function () {
 		system.armor(armor, DmgResult, true);
 
 	}, true);
-	listenclick4.addEventListener('click',function(){
-		/**
-		 * [magic_damage description]
-		 * @type {[type]}
-		 */
-		//Completo, considera también el ataque físico
-		var magic_damage = D(dsystem).magic({
-			Sides : [ 100, 100, 8, 4 ],
-			ModDamage: [ 20, -25, -1, 0 ],
-			Rolls: [ 2, 1, 2, 1 ]
-		}, true, magik, true);
-		//Sólo magia
-		//var magic_damage = D(dsystem).magic(false, false, magik, true);
-	}, true);
 
-	/**
-	 * Insert new types of magic damage if your game need it
-	 * in this case, tech damage propertie is inserted into "magik" variable
-	 * and initialized to 0
-	 */
-
-	magik['DamageTechDice'] = 0;
-	magik['DamageTechFixed'] = 0;
-	magik['DamageTechRoll'] = 0;
-
-	//console.log(magik);
-
-	document.getElementById('DamageTechDice').onblur = function(){
-		magik.DamageTechDice = this.value;
-		console.log(magik.DamageTechDice);
-	};
-	document.getElementById('DamageTechFixed').onblur = function(){
-		magik.DamageTechFixed = this.value;
-		console.log(magik.DamageTechFixed);
-	};
-	document.getElementById('DamageTechRoll').onblur = function(){
-		magik.DamageTechRoll = this.value;
-		console.log(magik.DamageTechRoll);
-	};
-
-
-	listencheckbox1.addEventListener('change', function(){
-		console.log(this.checked);
-		console.log(this.id);
-
-		if( this.checked === true ) {
-			magik['DamageTechDice'] = +document.getElementById('DamageTechDice').value;
-			magik['DamageTechFixed'] = +document.getElementById('DamageTechFixed').value;
-			magik['DamageTechRoll'] = +document.getElementById('DamageTechRoll').value;
-		}
-
-	});
-
-	listenclick5.addEventListener('click', function(){
-
-		system.damage({
-			Sides : 100,
-			ModDamage: 10,
-			Rolls: 1
-		},
-			system.skill(1,0,10,false,false), true);
-
-	}, true);
-
-	listenclick6.addEventListener('click', function(){
+	listenclick4.addEventListener('click', function(){
 
 		var DmgResult = {
 			Damage: 15,
@@ -171,11 +103,24 @@ window.onload = function () {
 		system.armor(armor, DmgResult, true);
 
 	});
+	listenclick5.addEventListener('click',function(){
 
+		dsystem.Percentual = true;
+
+		D(dsystem).skill(1,0,10,50,50);
+
+	}, true);
+	listenclick6.addEventListener('click',function(){
+		/**
+		 * dx(sides, rolls, difficulty, wildDice)
+		 */
+		D().dx(6,8,20,true);
+	}, true);
 	listenclick7.addEventListener('click', function(){
-		D().skill(1,0,10,50,50);
+		D().vda(10,6,8);
+	});
 
-	}, false);
+
 
 	listenclick8.addEventListener('click', function(){
 
@@ -196,7 +141,7 @@ window.onload = function () {
 		var critical = 10,
 			special = 20,
 			epicfail = 5;
-		D(dsystem).confront(15,25);
+		D(dsystem).confront(15,15);
 	}, false );
 
 };

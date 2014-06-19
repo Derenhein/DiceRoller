@@ -76,11 +76,18 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options: {
-				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
+				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+				mangle: true,
+				wrap: true,
+				compress: true
 			},
-			build: {
-				src: 'src/<%= pkg.name %>.js',
-				dest: 'build/<%= pkg.name %>.min.js'
+			my_target: {
+				files: [{
+					expand: true,
+					cwd: 'src/',
+					src: '**/*.js',
+					dest: 'build/'
+				}]
 			}
 		}
 
