@@ -346,7 +346,7 @@
 		 * Deletes all coincidencies from an array
 		 */
 
-		this.Remove_Element = function( array ) {
+		/*this.Remove_Element = function( array ) {
 			var ToRemove	= '',				//element to remove
 				Arguments	= arguments,		//all arguments
 				Arg_Lenght	= Arguments.length, //length of arguments
@@ -364,14 +364,14 @@
 
 			return array;
 
-		};
+		};*/
 
 		return this;
 	};
 
 	D.fn = Libs.prototype = {
 
-		roll: function(rolls, sides, mod, critical) {
+		roll: function(rolls, sides, mod) {
 
 			var RolledDices	= 0,
 				d			= document.getElementById(this.HistoryBox),
@@ -1024,15 +1024,26 @@
 				self					= this;
 
 			/**
-			 * Modify_Roll_Dice : función que nos permite modificar la plantilla que muestra "Rolls for".
-			 * permintiéndonos añadir espacios o símbolos entre las dos o más tiradas de dados
+			 * Modify_Roll_Dice : works as a calculator for critical ( and special damage ), and for
+			 * presentation in the log.
 			 */
 
-			function Modify_Roll_Dice ( args, DataDamage, self ) {
+			function Modify_Roll_Dice ( args ) {
+
+				var MyArgs = Array.prototype.slice.call(arguments,0),
+					obj = new Object(MyArgs);
+
 				var	re						= /,/g,
 					StringedDamage			= 0,
+					DataDamage				= obj[1],
 					SplitedDamage			= 0,
-					newFullDamage			= [];
+					newFullDamage			= [],
+					Sum						= 0,
+					ModDamage				= 0,
+					self					= {};
+
+				arguments.length > 3 ? self = obj[3] : self = obj[2];
+				arguments.length > 3 ? ModDamage = obj[2] : ModDamage = 0;
 
 				var apply = {
 					criticalmod : function(data){
@@ -1043,31 +1054,95 @@
 					}.bind(self)
 				};
 
-				if ( args === 'critical' ) {
+				if ( arguments.length > 3 || arguments.length === 4 ) {
 
-					newFullDamage		= DataDamage.map(apply.criticalmod),
-					StringedDamage		= newFullDamage.toString(),
-					SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+					if ( args === 'critical' ) {
 
-					return SplitedDamage;
-				} else if ( args === 'special' ) {
+						if ( newFullDamage.length > 0 ) {
+							newFullDamage		= DataDamage.map(apply.criticalmod);
 
-					newFullDamage		= DataDamage.map(apply.specialmod),
-					StringedDamage		= newFullDamage.toString(),
-					SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+							for (var i = 0; i < newFullDamage.length; i++) {
+								Sum += newFullDamage[i];
+							}
+						} else {
 
-					return SplitedDamage;
-				} else if ( args === 'normal' ) {
+							Sum = apply.criticalmod(DataDamage);
+						}
+						Sum += Math.floor(apply.criticalmod(ModDamage));
 
-					newFullDamage		= DataDamage,
-					StringedDamage		= newFullDamage.toString(),
-					SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+						if ( Sum < 0 ) {
+							return 0;
+						} else {
+							return Sum;
+						}
 
-					return SplitedDamage;
+					} else if ( args === 'special' ) {
+
+						if ( newFullDamage.length > 0 ) {
+							newFullDamage		= DataDamage.map(apply.specialmod);
+
+							for (var i = 0; i < newFullDamage.length; i++) {
+								Sum += newFullDamage[i];
+							}
+						} else {
+							Sum = apply.specialmod(DataDamage);
+						}
+						Sum += Math.floor(apply.specialmod(ModDamage));
+
+						if ( Sum < 0 ) {
+							return 0;
+						} else {
+							return Sum;
+						}
+
+					} else {
+						if ( newFullDamage.length > 0 ) {
+							for (var i = 0; i < DataDamage.length; i++) {
+								Sum += DataDamage[i];
+							}
+						} else {
+							Sum = +DataDamage;
+						}
+
+						Sum += ModDamage;
+
+						if ( Sum < 0 ) {
+							return 0;
+						} else {
+							return Sum;
+						}
+					}
+
 				} else {
-					console.log('Error!! cannot leave args blank, or wrong assingment');
-					return 0;
+
+					if ( args === 'critical' ) {
+
+						newFullDamage		= DataDamage.map(apply.criticalmod),
+						StringedDamage		= newFullDamage.toString(),
+						SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+
+						return SplitedDamage;
+					} else if ( args === 'special' ) {
+
+						newFullDamage		= DataDamage.map(apply.specialmod),
+						StringedDamage		= newFullDamage.toString(),
+						SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+
+						return SplitedDamage;
+					} else if ( args === 'normal' ) {
+
+						newFullDamage		= DataDamage,
+						StringedDamage		= newFullDamage.toString(),
+						SplitedDamage		= StringedDamage.replace(re,'&nbsp; & &nbsp;');
+
+						return SplitedDamage;
+					} else {
+						console.log('Error!! cannot leave args blank, or wrong assingment');
+						return 0;
+					}
+
 				}
+
 			}
 
 			if( !params.Sides.length ) {
@@ -1092,10 +1167,9 @@
 
 					if ( ParamsSkill.Critical ) {
 						//Critical rolls
+						SplitedDamage = Modify_Roll_Dice('critical', DamageRollResult, self );
 
-						SplitedDamage = Modify_Roll_Dice('critical', DamageRollResult, self);
-
-						SumRolls = Math.floor( DamageRollResult * +this.CriticalMultiplier ) + Math.floor( params.ModDamage * +this.CriticalMultiplier );
+						SumRolls = Modify_Roll_Dice('critical', DamageRollResult, params.ModDamage, self );
 
 						Template.innerHTML += [	'<span class="'+this.StyleCSS+'-warning"> Critical x'+ this.CriticalMultiplier +'</span>',
 												'<span class="'+this.StyleCSS+'-default">Rolls for a  : &nbsp;',
@@ -1106,10 +1180,9 @@
 
 					} else if ( ParamsSkill.Special ) {
 						//Special Rolls
-
 						SplitedDamage = Modify_Roll_Dice('special', DamageRollResult, self);
 
-						SumRolls = Math.floor( DamageRollResult * +this.SpecialRollMultiplier ) + Math.floor( params.ModDamage * +this.SpecialRollMultiplier );
+						SumRolls = Modify_Roll_Dice('special', DamageRollResult, params.ModDamage, self );
 
 						Template.innerHTML += [	'<span class="'+this.StyleCSS+'-warning"> Special x'+ this.SpecialRollMultiplier +'</span>',
 												'<span class="'+this.StyleCSS+'-default">Rolls for a  : &nbsp;',
@@ -1122,7 +1195,7 @@
 						// Normal rolls
 						SplitedDamage = Modify_Roll_Dice('normal', DamageRollResult, self);
 
-						SumRolls += +DamageRollResult + params.ModDamage;
+						SumRolls = Modify_Roll_Dice('normal', DamageRollResult, params.ModDamage, self );
 
 						Template.innerHTML += [	'<span class="'+this.StyleCSS+'-default">Rolls for : &nbsp;',
 												SplitedDamage + '</span>',
@@ -1205,6 +1278,7 @@
 					}
 
 					if ( params.ModDamage.length > 1 ) {
+						var ModStyle = '';
 
 						for (var j = 0; j < SumDamageArray.length; j++) {
 
@@ -1214,17 +1288,20 @@
 														params.Rolls[j] + 'd' + params.Sides[j] + '</span> &nbsp;'
 													].join('\n');
 
+							params.ModDamage[j] < 0 ? ModStyle = 'danger' : ModStyle = 'info';
+
 							if ( ParamsSkill.Critical ) {
 								//Critical rolls
 
 								SplitedDamage = Modify_Roll_Dice('critical', DataDamage, self);
 
-								SumRolls = SumDamageArray[j] + ( Math.floor( params.ModDamage[j] ) * +this.CriticalMultiplier );
+								SumRolls = Modify_Roll_Dice('critical', SumDamageArray[j], params.ModDamage[j], self );
+
 
 								Template.innerHTML += [	'<span class="'+this.StyleCSS+'-warning"> Critical x'+ this.CriticalMultiplier +'</span>',
 														'<span class="'+this.StyleCSS+'-default">Rolls for a  : &nbsp;',
 														SplitedDamage + '</span>',
-														'<span class="'+this.StyleCSS+'-default">Damage Mod '+ Math.floor( params.ModDamage[j] * +this.CriticalMultiplier )+'</span>',
+														'<span class="'+this.StyleCSS+'-'+ModStyle+'">Damage Mod '+ Math.floor( params.ModDamage[j] * +this.CriticalMultiplier )+'</span>',
 														'<span class="'+this.StyleCSS+'-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 													].join('\n');
 
@@ -1233,12 +1310,12 @@
 
 								SplitedDamage = Modify_Roll_Dice('special', DataDamage, self);
 
-								SumRolls = SumDamageArray[j] + ( Math.floor( params.ModDamage[j] ) * +this.SpecialRollMultiplier );
+								SumRolls = Modify_Roll_Dice('special', SumDamageArray[j], params.ModDamage[j], self );
 
 								Template.innerHTML += [	'<span class="'+this.StyleCSS+'-warning"> Special x'+ this.SpecialRollMultiplier +'</span>',
 														'<span class="'+this.StyleCSS+'-default">Rolls for a  : &nbsp;',
 														SplitedDamage + '</span>',
-														'<span class="'+this.StyleCSS+'-default">Damage Mod '+ Math.floor( params.ModDamage[j] * +this.SpecialRollMultiplier )+'</span>',
+														'<span class="'+this.StyleCSS+'-'+ModStyle+'">Damage Mod '+ Math.floor( params.ModDamage[j] * +this.SpecialRollMultiplier )+'</span>',
 														'<span class="'+this.StyleCSS+'-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 													].join('\n');
 
@@ -1246,67 +1323,18 @@
 								// Normal rolls
 								SplitedDamage = Modify_Roll_Dice('normal', DataDamage, self);
 
-								SumRolls = parseInt( SumDamageArray[j], 10) + parseInt(params.ModDamage[j], 10 );
+								SumRolls = Modify_Roll_Dice('normal', SumDamageArray[j], params.ModDamage[j], self );
 
 								Template.innerHTML += [	'<span class="'+this.StyleCSS+'-default">Rolls for : &nbsp;',
 														SplitedDamage + '</span>',
-														'<span class="'+this.StyleCSS+'-default">Damage Mod '+ params.ModDamage[j]+'</span>',
+														'<span class="'+this.StyleCSS+'-'+ModStyle+'">Damage Mod '+ params.ModDamage[j]+'</span>',
 														'<span class="'+this.StyleCSS+'-info">'+ FullDamage[j].TypeDamage +' &nbsp; Damage</span>'
 													].join('\n');
 							}
 
 							FinalDamage += SumRolls;
 
-							// Check for a positive o negative number on params.ModDamage array
-							if ( params.ModDamage[j] < 0 ) {
-								/*
-								 * Check if params.ModDamage is greater than 0. If that variable
-								 * if is equal to 0, does not render a span with '0'. Better for
-								 * a cleaner result
-								 */
-
-								// Negative params.ModDamage use a red style
-								if ( ParamsSkill.Critical ) {
-									Template.innerHTML += 	[	'&nbsp;<span class="'+this.StyleCSS+'-danger ">',
-																( +params.ModDamage[j]  * this.CriticalMultiplier ) + '</span>'
-															].join('\n');
-
-								} else if ( ParamsSkill.Special ) {
-									Template.innerHTML += 	[	'&nbsp;<span class="'+this.StyleCSS+'-danger ">',
-																Math.floor( +params.ModDamage[j]  * this.SpecialRollMultiplier ) + '</span>'
-															].join('\n');
-
-								} else {
-									Template.innerHTML += 	[	'&nbsp;<span class="'+this.StyleCSS+'-danger ">',
-																params.ModDamage[j] + '</span>'
-															].join('\n');
-
-								}
-
-								Template.innerHTML += '&nbsp; = &nbsp;<span class="'+this.StyleCSS+'-default">' + SumRolls +'</span>';
-
-							} else if ( params.ModDamage[j] > 0 ) {
-
-								if ( ParamsSkill.Critical ) {
-									// Positive params.ModDamage use a deep blue style
-									Template.innerHTML += 	[	'&nbsp;<span class="'+this.StyleCSS+'-primary ">',
-																' + ' + ( +params.ModDamage[j]  * this.CriticalMultiplier ) + '</span>'
-															].join('\n');
-								} else if ( ParamsSkill.Special  ) {
-
-									Template.innerHTML += 	[	'&nbsp;<span class="'+this.StyleCSS+'-primary ">',
-																' + ' + Math.floor( +params.ModDamage[j]  * this.SpecialRollMultiplier ) + '</span>'
-															].join('\n');
-								} else {
-
-									Template.innerHTML +=	[	'&nbsp;<span class="'+this.StyleCSS+'-primary ">',
-																' + ' + params.ModDamage[j] + '</span>'
-															].join('\n');
-								}
-
-								Template.innerHTML += '&nbsp; = &nbsp;<span class="'+this.StyleCSS+'-default">' + SumRolls +'</span>';
-
-							}
+							Template.innerHTML += '&nbsp; = &nbsp;<span class="'+this.StyleCSS+'-default">' + SumRolls +'</span>';
 
 						}
 					}
