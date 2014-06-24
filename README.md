@@ -1,15 +1,31 @@
 DiceRoller
 ==========
 
-Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices
+Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices.
 
 As later version, diceroller.js relies on [**David Bau ** seedrandom.js](https://github.com/davidbau/seedrandom) for a better random number generation. Is a very little library ( 2kb minified ).
 
+For a non dependecy library using default javascript Math.Random(), there's a version without seedrandom.js
+
+==My apologies:== if documentation is a liltle (or a lot) weird, my native languaje isn't english, but a do my best to be clearer and non weirder. Thanks!
+
 ##Specifications:
 
-- Single o multi dice rolls
+- Single o multi dice rolls.
 
-- Damage calculation
+- Damage calculation.
+
+- Armor protection or damage reduction.
+
+- Dice Roller for BRP
+
+- Dice Roller for MERP (second edition).
+
+- Dice roller for D20 games.
+
+- Dice roller for XD6 games.
+ 
+- Dice roller for Vampire Dark Age first edition
 
 ##Getting Starterd
 
@@ -40,27 +56,30 @@ Set game rules is basic for the performance of DiceRoller
 ```javascript
 var GameSystem = {
 
-		DiceSides: 100,
-		Percentual: false,
-		BaseSkill: 50,
-		OpenRoll: true,
-		BonusSkill: 0,
-		HistoryBox: 'logbox',
+		DiceSides	 			: 100,
+		Percentual				: true,
+		BaseSkill	 			: 0,
+		OpenRoll				  : false,
+		BonusSkill				: 0,
 
-		CriticalTreshold: 10,
-		CriticalMultiplier: 2,
-		CriticalPierceArmor: true,
+		CriticalTreshold		  : 10,
+		CriticalMultiplier		: 2,
+		CriticalPierceArmor	   : false,
 
-		SpecialRoll: true,
-		SpecialRollMultiplier: 1.5,
-		SpecialRollTreshold: 20,
-		SpecialRollPierceArmor: true,
+		SpecialRoll			   : false,
+		SpecialRollMultiplier	 : 0,
+		SpecialRollTreshold	   : 0,
+		SpecialRollPierceArmor	: false,
 
-		EpicFail: true,
-		EpicFailTreshold: 10,
-		EpicFailMaxTreshold: 96,
-		EpicFailMinTreshold: 100,
-		DirectFail : 96
+		EpicFail				  : true,
+		EpicFailTreshold		  : 5,
+		EpicFailMaxTreshold	   : 100,
+		EpicFailMinTreshold   	: 100,
+		DirectFail				: 96,
+
+		HistoryBox				: 'RollBox',
+		TagElement				: 'p',
+		StyleCSS			  	: 'lround lround'
 
 };
 
@@ -75,8 +94,6 @@ var GameSystem = {
 `OpenRoll`: MERP like system uses a "open roll" when the dice roll reaches certain puntuation
 
 `BonusSkill`: Add a puntuation modificator to the roll. Can be negative (a penalty to the roll).
-
-`HistoryBox`: ID of the div for the roll log.
 
 `CriticalTreshold`: Used as a percentage of the BaseSkill in BRP like system. A '10' means 10% of the BaseSkill.
 
@@ -102,6 +119,21 @@ var GameSystem = {
 
 `DirectFail`: Set a minimun range where all rolls are automatic fails.
 
+`HistoryBox`: ID of the div for the roll log.
+
+`TagElement`: All logs are wrapped in a 'p' tag by default.
+
+`StyleCSS`: diceroller.js uses a default css file with styles. The first one is the shape of the rolls, and the second one is the color.
+
+In a example of the generated html:
+```html
+	/*The code inside dicerroller.js */
+	<span class=" + 'this.StyleCSS + '-default"></span>
+	
+	/*The resulting html*/
+	<span class="lround lround-default"></span>
+```
+
 ##Using DiceRoller
 DiceRoller uses "D" as a prefix for invoking it, like this
 
@@ -113,22 +145,31 @@ The example from avobe is a very simple method, invoking a 3 rolls of 6 sides di
 
 These other example does a 2d6+6 roll.
 
-##### Catching D([GameSystem])
+##### Caching D([GameSystem])
 
-More comfortable form to use the same game system on every DiceRoller method is catching it like this:
+Is possible to catch various game rules or different situations in the same game (no armor piercing, no critical rolls, Critical Fail increased, more difficulty, etc). Caching in a variable is a good option.
 
 ```javascript
+
+var GameSystem = {
+		DiceSides	 			: 100,
+		Percentual				: true,
+		BaseSkill	 			: 0,
+		OpenRoll				  : false,
+		BonusSkill				: 0,
+		
+		etc..
+};
 
 var MySys = D(GameSystem);
 
 MySys.skill(1,100,0,false,false);
 
 ```
-Or you can set two different game rules or conditions (no critical, different ranges of Critical Fail, etc).
 
 #### Skill method:
 
-Mainly used for skill rolls, like combat skill, jump, craft, riding, etc. Accepts extra parameters like a modification to the roll, punctuation of the skill and difficulty to overcome.
+A dice roller mainly used for standard skill rolls. Set a difficult, your dice sides, rolls, any modificator ( a bonus or a penalty ) and/or a difficulty ( if you game rules need it);
 
 **skill( rolls, sides, mod, skill, difficulty ):**
 
@@ -182,9 +223,9 @@ RollsObj = {
 
 `Roll`: Returns the final result of the skill roll.
 
-`Critical`: true for a critical roll.
+`Critical`: true for a critical roll. For damage rolls, damage() will apply damage modificators if this options is true.
 
-`Special`: true for a special roll.
+`Special`: true for a special roll. As 'Critical', if set to true, damage() will apply damage modificators.
 
 `EpicFail`: true if the roll result is a Epic Fail.
 
@@ -192,19 +233,25 @@ RollsObj = {
 
 #### Damage method:
 
-Method used for calculate and show damage.
+A tricky one!, as players increases their power (level, loot... both!), damage can come from different forms, like a flaming sword (phsycal damage and fire ), or a corrosive poison (poison and acid).
+
+Is importan to declares damage of weapon/spell one by one for a correct damage calculation.
+
+*Don´t forget your attack roll!! *
+
+Damage can´t predict if your roll is critical or not. May you want to do an automatic one click skill roll and damage, or use a predefined roll. Is posible to do both.
 
 **damage(params, ParamsSkill, showlog):**
 
 ```javascript
-// Example for a 2d6+2 + 1d4-3
+// Following the exaple of our "Flamig Sword", this terrifying wepon does 1d8+1 (as sword) and 3d4-3 as fire.
 
-// Using Skill() for a auto generate skill rolls
+// Using Skill() for a auto generate skill rolls usign default game rules
 
 D().damage({	
-		Sides : [ 6, 4 ],
-		ModDamage: [ 2, -3 ],
-		Rolls: [ 2,  1 ],
+		Sides : [ 8, 4 ],
+		ModDamage: [ 1, -3 ],
+		Rolls: [ 1,  3 ],
 		TypeDamage:['Physic', fire']
 	},
 	D().skill(1,100,0,false,false), 
@@ -215,6 +262,7 @@ D().damage({
 
 var skill = {
 
+	//damage() looks for an array in 'Roll' property
 	Roll : [15],
 	Critical : true,
 	Special: false,
@@ -224,9 +272,9 @@ var skill = {
 };
 
 D().damage({	
-		Sides : [ 6, 4 ],
-		ModDamage: [ 2, -3 ],
-		Rolls: [ 2,  1 ],
+		Sides : [ 8, 4 ],
+		ModDamage: [ 1, -3 ],
+		Rolls: [ 1,  3 ],
 		TypeDamage:['Physic', fire']
 	},
 	skill, 
@@ -250,9 +298,13 @@ D().damage({
 
 `showlog`: shows the rolls and the result on a div as a log. Div ID setted on `system.Historybox`
 
-#### Armor method ~ WIP
+#### Armor method
 
-Used to calculate armor protection (damage absorption). In actual version of DiceRoller, damage is calculate as a "generic" damage, doesn´t differ from magic or elemental damage.
+Very simmilar as 'damage()'. This method needs to be defined before with the armor types on your game.
+
+In an object type, you can define every kind of armor to any kind of damage. As a more easy management of armor/protection, is better to declare the most used protections.
+
+Setting sides, fixed and rolls to 0, this protection will be ignored.
 
 ######Armor settings:
 
@@ -272,7 +324,6 @@ var armor = {
 
 ```
 
-The code from above prepares a object with an array of data, putting generic types of damage in almost all rolgames.
 
 ##### Parameters of armor object:
 
@@ -284,26 +335,62 @@ The code from above prepares a object with an array of data, putting generic typ
 
 - `Rolls`: How many rolls per dice.
 
-Setting Sides at 0 doesn´t skip armor calculation, cause the game system maybe uses fixed values of damage reduction.
+Setting Sides at 0 doesn´t skip armor calculation, cause the game system maybe uses fixed values of damage reduction. 
+
+**Example of mixed roll and fixed values:**
+
+An armor of 1d10+1 of physical (non magic or elemental damage) is :
+
+```javascript
+var armor = {
+
+	physic : [ { Name: 'Physic', Sides : 10, Fixed : 1, Rolls : 1 } ]
+	
+};
+```
+Same example, but only protects 6 damage points:
+```javascript
+var armor = {
+
+	physic : [ { Name: 'Physic', Sides : 0, Fixed : 6, Rolls : 0 } ]
+	
+};
+```
+
+Following the example of the "flaming sword", if your armor have +1d6-1 fire protection, the armor object will be the sequent:
+
+```javascript
+var armor = {
+
+	physic : [ { Name: 'Physic', Sides : 0, Fixed : 6, Rolls : 0 } ],
+	fire : [ { Name: 'Fire', Sides : 6, Fixed : -1, Rolls : 1 }]
+	
+};
+```
+
+-----
 
 **Armor(ArmorParams, FullDamage, Showlog);**
 
 ```javascript
 
-//combined skill() result with damage() and armor()
+//As a complete combat sequence of roll-hit-damage-armor with default settings:
 
-var DmgResult = system.damage({
-		// this example is for a (2d6+2) + 1d4-3
-		Sides : [ 6, 4 ],
-		ModDamage: [ 20, -3 ],
-		Rolls: [ 2,  1 ],
+var DmgResult = D().damage({
+		// Our gorgeous Flaming Sword (1d8+1) + 3d4-3
+		Sides : [ 8, 4 ],
+		ModDamage: [ 1, -3 ],
+		Rolls: [ 1,  3 ],
 		TypeDamage:['Physic', fire']
 	},
 	system.skill(1,100,0,false,false), 
 	true
 );
 
-system.armor(armor, DmgResult, true);
+// Passing armor object previous defined, following the damage roll stored in DmgResult and 
+// setting showlog as true.
+
+D().armor(armor, DmgResult, true);
 
 ```
 **Parameters**
@@ -313,3 +400,137 @@ system.armor(armor, DmgResult, true);
 - `DmgResult`: Damage calculated from damage()
 
 - `showlog`: shows the rolls and the result on a div as a log. Div ID setted on `system.Historybox`
+
+###D20 Roller:
+
+This is a specific dice roller for games based on **D&D**. I used the free open game documents from *Wizards of the Coast*.
+
+Suitable for all games who uses this basic rules.
+
+d20() have a very high independecy from game rules, except for style and showlog.
+
+**D().d20( params );**
+
+```javascript
+
+D().d20({
+			Sides: 20,
+			Rolls: 1,
+			Mod: 5,
+			Difficulty: 20,
+			Critical: 15,
+			EpicFail: true
+		});
+
+	
+```
+**Parametes :**
+
+ - `Sides:` yes, i know this is a "D20" roller, but may be needs some restriction o using a modified version with a "D30".
+ 
+ - `Rolls:` How many rolls for your dice.
+ 
+ - `Mod:` put your modificators roll here (if there mor than one, sum it).
+ 
+ - `Difficulty:` Sets roll difficulty to overcome.
+ 
+ - `Critical:` Some feats augments your critical treshold.
+ 
+ - `EpicFail:` Set to false to ignore Critical Fails.
+ 
+###XD6 roller
+
+A roller for games who uses six sides dice, like Star Wars or Z-Corps, generally named as ==XD6== game system.
+
+```javascript
+//Example for a 6d8 roll, difficulty set to 20 and a 'WildDice'
+
+D().dx(6,8,20,true);
+```
+
+XD6 sometimes uses a "Wild Dice" or a "Chaos Dice". Ussually is a different colored d6, with the particularity of "exploding" property.
+
+The "exploding" means a 6 result and roll again, until a non 6 result appears, more fammiliar for MERP players as "open roll", but only for this "different roll".
+
+The Wild Dice isn´t a extra dice to add to your rolls, is one of your dices. As example, your character needs to open a locked door, and your skill for unlock it is 3d6 with a difficulty of ==20==.
+The easy part to understand is "your cannot accomplish that, cause 6x3 = ==18== ", but your roll isn´t 3d6, your roll is 2d6 plus Wild Dice. Your roll for 5 and 3, but the Wild Dice rolls for 6 and eplodes and roll again for 6, and for a 3.
+
+Finally, your roll is 5, 3, 6, 6 and 3, == Total of 23 ==, you´re succesful and unlock the door.
+
+If your skill only have one dice, this dice is a Wild Dice.
+
+```javascript
+// dx(sides, rolls, difficulty, wildDice)
+
+//Example of a 6d8, with difficulty set to 20 and Wild Dice enabled
+D().dx(6,8,20,true);
+
+```
+
+**Params:**
+ - `Sides:` As said in d20(), may use a game very simmilar, but with different dices. Set your dice sides here.
+ 
+ - `Rolls:` How many rolls for your dices.
+ 
+ - `Difficulty:` Set difficulty roll.
+ 
+ - `WildDice:` Set to true to enable Wild Dice.
+ 
+##### Rule of one:#####
+
+XD6 by default uses "==the rule of one==". If the Wild Dice rolls for 1, the biggest dice roll will be supressed and, of course, the Wild Dice.
+
+But this isn't means a failure, if the sum of the rest of dices are bigger than difficulty setted, the roll have a success (in game terms, may be very marginal), but a failure can be (in game) a critical fail.
+
+---
+
+###Confront
+
+Very specific roller for confornt habilities or punctuations in BRP. Very common on BRP games do a "fight" of punctuations like STRength VS CONstitution.
+
+**How it works:**
+
+Using a base of 50% for the two punctuations, sums +5% for every point of differente from attacker (STR) and defender (CON).
+
+Using number of STR 18 and CON 12 is very simple, is a difference operation 18-12 = 6. And for every point of difference adds a 5% : 6 * 5 = +30%. Means a 50% of base roll plus 30 equals a 80% of possibilities to win.
+
+But inverse case is possible, changing numbers from STR 18 to 12 and CON 12 to 18, looks like this : 
+
+` 12 - 18 = -6; -6 * 5 = -30%; 50 + ( -30 ) = 20% `
+
+The attacker only have 20% chances to win.
+
+**D().confront(attacker, defender)**
+
+```javascript
+//Attacker and defender, this example is a 50-50 chances to win for attacker and defender.
+	
+D().confront(15,15);
+
+```
+**Params:**
+
+Very simple, as only needs to set the punctuations for the encounter. But as a tool for percentual game rules, set your´s with critical, special, critical fail, etc.
+
+###VDA Roller
+VDA means **Vampire: Dark Age**. Is the roller for first edition (1996) of this game. Very simple and simmilar to XD6, but in VDA your roll many dices as your principal hability and your skill (or discipline), and only need one succes.
+
+As more successes, better realization of the action. With no critical rolls and a dífficult to overcome every dice (XD6 sums all reults).
+
+**D().vda(Sides, Rolls, Difficulty**
+
+```javascript
+//Rolls 6d10, and a difficulty of 8
+
+D().vda(10,6,8);
+```
+**Params:**
+ - `Sides:` Sides of your main dices.
+ 
+ - `Rolls:` How many rolls.
+ 
+ - `Difficulty:` Difficulty to overcome. As said before, in this game rules, every dice needs to surpass difficulty, but is enought with only one for a marginal success.
+
+####Game settings in d20(), dx() and vda():
+
+d20(),dx() and vda() uses his own rules, and only few of game settings will be used. ==CSS== styles and the "log box" needs to be set if you want to use a different one, or the tag wrapping every roll (by default uses a 'p' tag).

@@ -62,7 +62,7 @@ window.onload = function () {
 	}, true);
 
 	listenclick2.addEventListener('click', function(){
-		system.Percentual = false;
+		system.Percentual = true;
 		system.damage({
 			Sides : 20,
 			ModDamage: 10,
@@ -141,7 +141,7 @@ window.onload = function () {
 		var critical = 10,
 			special = 20,
 			epicfail = 5;
-		D(dsystem).confront(15,15);
+		D(dsystem).confront(25, 15);
 	}, false );
 
 };
