@@ -1388,7 +1388,7 @@
 				this : this
 			};
 		},
-		d20 : function ( params) {
+		d20 : function ( params ) {
 			var	d				= document.getElementById(this.HistoryBox),
 				Template		= this.Template,
 				ArrayRolls		= [],
@@ -1583,13 +1583,9 @@
 			MySpecial	= this.CalcTresholds.special_value();
 			MyFail		= this.CalcTresholds.critical_fail_value(Params);
 
-			if ( Result > 0 ) {
-
-				Template.innerHTML = [	'<span class="'+this.StyleCSS+'-info">Confront '+ attacker +' vs ' + defender + '</span>',
-										'&nbsp;<span class="'+this.StyleCSS+'-default">percentaje to roll '+ Result +'</span>'
-									].join('\n');
-
-			}
+			Template.innerHTML = [	'<span class="'+this.StyleCSS+'-info">Confront '+ attacker +' vs ' + defender + '</span>',
+									'&nbsp;<span class="'+this.StyleCSS+'-default">percentaje to roll '+ Result +'</span>'
+								].join('\n');
 
 			if ( Roll <= Result &&
 				Roll > MySpecial.MaxSpecial &&
@@ -1611,10 +1607,10 @@
 			} else if ( Roll >= MyFail  && Result > 0 ) {
 
 				Template.innerHTML += '&nbsp;<span class="'+this.StyleCSS+'-danger">Rolls for ' + Roll +', Critical Fail!!</span>';
-			} else if ( Result === 0 || Result < 0 ) {
+			} /*else if ( Result === 0 || Result < 0 ) {
 
 				Template.innerHTML = '&nbsp;<span class="'+this.StyleCSS+'-danger">Automatic Fail!! you don´t have a chance!!</span>';
-			} else {
+			}*/ else {
 
 				Template.innerHTML += '&nbsp;<span class="'+this.StyleCSS+'-danger">Rolls for ' + Roll +', Fail!!</span>';
 
