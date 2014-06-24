@@ -1,69 +1,78 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Diceroller : Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices" />
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
-    <title>Diceroller</title>
+    <title>Diceroller by Derenhein</title>
   </head>
 
   <body>
+    <header>
+      <div class="inner">
+        <h1>Diceroller</h1>
+        <h2>Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</h2>
+        <a href="https://github.com/Derenhein/DiceRoller" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/Derenhein/DiceRoller">View on GitHub</a>
-
-          <h1 id="project_title">Diceroller</h1>
-          <h2 id="project_tagline">Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/Derenhein/DiceRoller/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/Derenhein/DiceRoller/tarball/master">Download this project as a tar.gz file</a>
-            </section>
-        </header>
-    </div>
-
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a name="diceroller" class="anchor" href="#diceroller"><span class="octicon octicon-link"></span></a>DiceRoller</h1>
 
-<p>Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices</p>
+<p>Little javascript library to help roll game players to make quick and easy web apps for roll various kind of dices.</p>
+
+<p>As later version, diceroller.js relies on <a href="https://github.com/davidbau/seedrandom">**David Bau ** seedrandom.js</a> for a better random number generation. Is a very little library ( 2kb minified ).</p>
+
+<p>For a non dependecy library using default javascript Math.Random(), there's a version without seedrandom.js</p>
+
+<p>==My apologies:== if documentation is a liltle (or a lot) weird, my native languaje isn't english, but a do my best to be clearer and non weirder. Thanks!</p>
 
 <h2>
 <a name="specifications" class="anchor" href="#specifications"><span class="octicon octicon-link"></span></a>Specifications:</h2>
 
 <ul>
-<li>Single o multi dice rolls</li>
-<li>Damage calculation</li>
+<li><p>Single o multi dice rolls.</p></li>
+<li><p>Damage calculation.</p></li>
+<li><p>Armor protection or damage reduction.</p></li>
+<li><p>Dice Roller for BRP</p></li>
+<li><p>Dice Roller for MERP (second edition).</p></li>
+<li><p>Dice roller for D20 games.</p></li>
+<li><p>Dice roller for XD6 games.</p></li>
+<li><p>Dice roller for Vampire Dark Age first edition</p></li>
 </ul><h2>
 <a name="getting-starterd" class="anchor" href="#getting-starterd"><span class="octicon octicon-link"></span></a>Getting Starterd</h2>
 
-<p>DiceRoller is a light and simple <strong>javascript</strong> library made for help DM and players develop tools for make life easyer.</p>
+<p>DiceRoller is a light and simple <strong>javascript</strong> library made for help DM and players develop tools for make life easyer. Is a standalone libray, with optional use of seedrandom.js for a better random number generation.
+For use dicerroller.js, other plugins aren´t required, only a little of time for set your game system.</p>
 
-<p>Made in javascript, don´t need other libreries like <strong>JQuery</strong>.</p>
-
-<p>At this time, i´m using <strong>Bootstrap CSS</strong> for easy styling, but is planned to develop a custom CSS.</p>
+<p>Two versions of diceroller.js will be supported. With <a href="https://github.com/davidbau/seedrandom">seedrandom</a> and standalone without this plugin.</p>
 
 <div class="highlight highlight-html"><pre><span class="cp">&lt;!doctype html&gt;</span>
 <span class="nt">&lt;html&gt;</span>
     <span class="nt">&lt;head&gt;</span>
         <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"utf-8"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;title&gt;</span>DiceRoller<span class="nt">&lt;/title&gt;</span>
-        <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/bootstrap.min.css"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"css/roller.css"</span><span class="nt">&gt;</span>
         <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/diceroller.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"js/seedrandom.js"</span><span class="nt">&gt;&lt;/script&gt;</span> <span class="c">&lt;!-- Optional --&gt;</span>
     <span class="nt">&lt;/head&gt;</span>
     <span class="nt">&lt;body&gt;</span>
         ...content...
     <span class="nt">&lt;/body&gt;</span>
 <span class="nt">&lt;html&gt;</span>
+
 </pre></div>
 
 <h2>
@@ -73,28 +82,33 @@
 
 <div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">GameSystem</span> <span class="o">=</span> <span class="p">{</span>
 
-        <span class="nx">DiceSides</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
-        <span class="nx">Percentual</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-        <span class="nx">BaseSkill</span><span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
-        <span class="nx">OpenRoll</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">BonusSkill</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">HistoryBox</span><span class="o">:</span> <span class="s1">'logbox'</span><span class="p">,</span>
+        <span class="nx">DiceSides</span>               <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">Percentual</span>              <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">BaseSkill</span>               <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">OpenRoll</span>                  <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">BonusSkill</span>              <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 
-        <span class="nx">CriticalTreshold</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="nx">CriticalMultiplier</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
-        <span class="nx">CriticalPierceArmor</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">CriticalTreshold</span>          <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="nx">CriticalMultiplier</span>      <span class="o">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nx">CriticalPierceArmor</span>    <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
 
-        <span class="nx">SpecialRoll</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">SpecialRollMultiplier</span><span class="o">:</span> <span class="mf">1.5</span><span class="p">,</span>
-        <span class="nx">SpecialRollTreshold</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
-        <span class="nx">SpecialRollPierceArmor</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">SpecialRoll</span>            <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">SpecialRollMultiplier</span>    <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">SpecialRollTreshold</span>    <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">SpecialRollPierceArmor</span>  <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
 
-        <span class="nx">EpicFail</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="nx">EpicFailTreshold</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
-        <span class="nx">EpicFailMaxTreshold</span><span class="o">:</span> <span class="mi">96</span><span class="p">,</span>
-        <span class="nx">EpicFailMinTreshold</span><span class="o">:</span> <span class="mi">100</span>
+        <span class="nx">EpicFail</span>                  <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">EpicFailTreshold</span>          <span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nx">EpicFailMaxTreshold</span>    <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">EpicFailMinTreshold</span>     <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">DirectFail</span>              <span class="o">:</span> <span class="mi">96</span><span class="p">,</span>
+
+        <span class="nx">HistoryBox</span>              <span class="o">:</span> <span class="s1">'RollBox'</span><span class="p">,</span>
+        <span class="nx">TagElement</span>              <span class="o">:</span> <span class="s1">'p'</span><span class="p">,</span>
+        <span class="nx">StyleCSS</span>                <span class="o">:</span> <span class="s1">'lround lround'</span>
 
 <span class="p">};</span>
+
 </pre></div>
 
 <p><code>DiceSides</code>: Define how many sides uses the main dice. Games like MERP or BRP uses 1d100. </p>
@@ -106,8 +120,6 @@
 <p><code>OpenRoll</code>: MERP like system uses a "open roll" when the dice roll reaches certain puntuation</p>
 
 <p><code>BonusSkill</code>: Add a puntuation modificator to the roll. Can be negative (a penalty to the roll).</p>
-
-<p><code>HistoryBox</code>: ID of the div for the roll log.</p>
 
 <p><code>CriticalTreshold</code>: Used as a percentage of the BaseSkill in BRP like system. A '10' means 10% of the BaseSkill.</p>
 
@@ -131,39 +143,80 @@
 
 <p><code>EpicFailMinTreshold</code>: independently, a máximun range can be setted.</p>
 
+<p><code>DirectFail</code>: Set a minimun range where all rolls are automatic fails.</p>
+
+<p><code>HistoryBox</code>: ID of the div for the roll log.</p>
+
+<p><code>TagElement</code>: All logs are wrapped in a 'p' tag by default.</p>
+
+<p><code>StyleCSS</code>: diceroller.js uses a default css file with styles. The first one is the shape of the rolls, and the second one is the color.</p>
+
+<p>In a example of the generated html:</p>
+
+<div class="highlight highlight-html"><pre>    /*The code inside dicerroller.js */
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">" + 'this.StyleCSS + '-default"</span><span class="nt">&gt;&lt;/span&gt;</span>
+
+    /*The resulting html*/
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"lround lround-default"</span><span class="nt">&gt;&lt;/span&gt;</span>
+</pre></div>
+
 <h2>
 <a name="using-diceroller" class="anchor" href="#using-diceroller"><span class="octicon octicon-link"></span></a>Using DiceRoller</h2>
 
 <p>DiceRoller uses "D" as a prefix for invoking it, like this</p>
 
-<p><code>D(gamesystem).roll(3,6,0);</code></p>
+<p><code>D().roll(3,6,0);</code></p>
 
 <p>The example from avobe is a very simple method, invoking a 3 rolls of 6 sides dice and a 0 modifier (a bonification to the roll or a penalty);</p>
 
-<p><code>D(gamesystem).roll(2,6,6);</code></p>
+<p><code>D().roll(2,6,6);</code></p>
 
 <p>These other example does a 2d6+6 roll.</p>
 
 <h5>
-<a name="catching-dgamesystem" class="anchor" href="#catching-dgamesystem"><span class="octicon octicon-link"></span></a>Catching D([GameSystem])</h5>
+<a name="caching-dgamesystem" class="anchor" href="#caching-dgamesystem"><span class="octicon octicon-link"></span></a>Caching D([GameSystem])</h5>
 
-<p>More comfortable form to use the same game system on every DiceRoller method is catching it like this:</p>
+<p>Is possible to catch various game rules or different situations in the same game (no armor piercing, no critical rolls, Critical Fail increased, more difficulty, etc). Caching in a variable is a good option.</p>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">MySys</span> <span class="o">=</span> <span class="nx">D</span><span class="p">(</span><span class="nx">GameSystem</span><span class="p">);</span>
+<div class="highlight highlight-javascript"><pre>
+<span class="kd">var</span> <span class="nx">GameSystem</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">DiceSides</span>               <span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+        <span class="nx">Percentual</span>              <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">BaseSkill</span>               <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">OpenRoll</span>                  <span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nx">BonusSkill</span>              <span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
 
-<span class="nx">MySys</span><span class="p">.</span><span class="nx">roll</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">);</span>
+        <span class="nx">etc</span><span class="p">..</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">MySys</span> <span class="o">=</span> <span class="nx">D</span><span class="p">(</span><span class="nx">GameSystem</span><span class="p">);</span>
+
+<span class="nx">MySys</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
 
 </pre></div>
 
 <h4>
 <a name="skill-method" class="anchor" href="#skill-method"><span class="octicon octicon-link"></span></a>Skill method:</h4>
 
-<p>Mainly used for skill rolls, like combat skill, jump, craft, riding, etc. Accepts extra parameters like a modification to the roll, punctuation of the skill and difficulty to overcome.</p>
+<p>A dice roller mainly used for standard skill rolls. Set a difficult, your dice sides, rolls, any modificator ( a bonus or a penalty ) and/or a difficulty ( if you game rules need it);</p>
 
-<p><strong>skill(rolls, sides, mod, skill, difficulty):</strong></p>
+<p><strong>skill( rolls, sides, mod, skill, difficulty ):</strong></p>
 
 <div class="highlight highlight-javascript"><pre><span class="c1">//Makes 1d100 roll</span>
+
+<span class="kd">var</span> <span class="nx">GameSystem</span> <span class="p">{</span>
+    <span class="c1">// Set your rules</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">system</span> <span class="o">=</span> <span class="nx">D</span><span class="p">(</span><span class="nx">GameSystem</span><span class="p">);</span> <span class="c1">//catched version</span>
+
 <span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">// Non cached</span>
+<span class="nx">D</span><span class="p">(</span><span class="nx">GameSystem</span><span class="p">)</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+
+<span class="c1">//Default rules</span>
+<span class="nx">D</span><span class="p">()</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">);</span>
+
 </pre></div>
 
 <p><strong>Parameters</strong></p>
@@ -180,22 +233,26 @@
 
 <p>Skill returns an object like the sequent example:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">RollsObj</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight highlight-javascript"><pre>
+<span class="nx">RollsObj</span> <span class="o">=</span> <span class="p">{</span>
+
     <span class="nx">Roll</span> <span class="o">:</span> <span class="nx">RollResult</span><span class="p">,</span>
     <span class="nx">Critical</span> <span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
     <span class="nx">Special</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nx">EpicFail</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
     <span class="nx">Fail</span><span class="o">:</span> <span class="kc">false</span>
+
 <span class="p">};</span>
+
 </pre></div>
 
 <p><strong>Parameters returned:</strong></p>
 
 <p><code>Roll</code>: Returns the final result of the skill roll.</p>
 
-<p><code>Critical</code>: true for a critical roll.</p>
+<p><code>Critical</code>: true for a critical roll. For damage rolls, damage() will apply damage modificators if this options is true.</p>
 
-<p><code>Special</code>: true for a special roll.</p>
+<p><code>Special</code>: true for a special roll. As 'Critical', if set to true, damage() will apply damage modificators.</p>
 
 <p><code>EpicFail</code>: true if the roll result is a Epic Fail.</p>
 
@@ -204,20 +261,52 @@
 <h4>
 <a name="damage-method" class="anchor" href="#damage-method"><span class="octicon octicon-link"></span></a>Damage method:</h4>
 
-<p>Method used for calculate and show damage.</p>
+<p>A tricky one!, as players increases their power (level, loot... both!), damage can come from different forms, like a flaming sword (phsycal damage and fire ), or a corrosive poison (poison and acid).</p>
+
+<p>Is importan to declares damage of weapon/spell one by one for a correct damage calculation.</p>
+
+<p>*Don´t forget your attack roll!! *</p>
+
+<p>Damage can´t predict if your roll is critical or not. May you want to do an automatic one click skill roll and damage, or use a predefined roll. Is posible to do both.</p>
 
 <p><strong>damage(params, ParamsSkill, showlog):</strong></p>
 
-<div class="highlight highlight-javascript"><pre><span class="nx">system</span><span class="p">.</span><span class="nx">damage</span><span class="p">({</span>
-        <span class="c1">// this example is for a (2d6+2) + 1d4-3</span>
-        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
-        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
-        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span> <span class="p">]</span>
+<div class="highlight highlight-javascript"><pre><span class="c1">// Following the exaple of our "Flamig Sword", this terrifying wepon does 1d8+1 (as sword) and 3d4-3 as fire.</span>
+
+<span class="c1">// Using Skill() for a auto generate skill rolls usign default game rules</span>
+
+<span class="nx">D</span><span class="p">().</span><span class="nx">damage</span><span class="p">({</span>    
+        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
+        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">TypeDamage</span><span class="o">:</span><span class="p">[</span><span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">fire</span><span class="s1">']</span>
+<span class="s1">    },</span>
+<span class="s1">    D().skill(1,100,0,false,false), </span>
+<span class="s1">    true</span>
+<span class="s1">);</span>
+
+<span class="s1">// Passing pre defined skill rolls</span>
+
+<span class="s1">var skill = {</span>
+
+<span class="s1">    //damage() looks for an array in '</span><span class="nx">Roll</span><span class="s1">' property</span>
+<span class="s1">    Roll : [15],</span>
+<span class="s1">    Critical : true,</span>
+<span class="s1">    Special: false,</span>
+<span class="s1">    EpicFail: false,</span>
+<span class="s1">    Fail: false</span>
+
+<span class="s1">};</span>
+
+<span class="s1">D().damage({    </span>
+<span class="s1">        Sides : [ 8, 4 ],</span>
+<span class="s1">        ModDamage: [ 1, -3 ],</span>
+<span class="s1">        Rolls: [ 1,  3 ],</span>
+<span class="s1">        TypeDamage:['</span><span class="nx">Physic</span><span class="s1">', fire'</span><span class="p">]</span>
     <span class="p">},</span>
-    <span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">),</span> 
+    <span class="nx">skill</span><span class="p">,</span> 
     <span class="kc">true</span>
 <span class="p">);</span>
-
 </pre></div>
 
 <p><strong>Parameters</strong></p>
@@ -225,24 +314,29 @@
 <p><code>params</code>: Basic parameters. Multiple dices, mods an rolls can be defined</p>
 
 <ul>
-<li>
-<code>Sides</code>: Define dices sides.</li>
-<li>
-<code>ModDamage</code>: Set a bonification or a penalty to the result. Is applied at the end of the roll.</li>
-<li>
-<code>ParamSkill</code>: Method Skill() can be passed, passing an object with the roll result (see skill method and the object returned).</li>
-<li>
-<code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code>
-</li>
-</ul><h4>
-<a name="armor-method--wip" class="anchor" href="#armor-method--wip"><span class="octicon octicon-link"></span></a>Armor method ~ WIP</h4>
+<li><p><code>Sides</code>: Define dices sides.</p></li>
+<li><p><code>ModDamage</code>: Set a bonification or a penalty to the result. Is applied at the end of the roll.</p></li>
+<li><p><code>Rolls</code>: Set how many rolls for dice.</p></li>
+<li><p><code>TypeDamage</code>: Label your damage type. Is important for logs and armor(), for matching this kind of damanges. Is ussual for some criaturas or high level characters to do multiple kind of damage (flaming swords, poisoned weapons, etc)-</p></li>
+</ul><p><code>ParamSkill</code>: Method Skill() can be passed, passing an object with the roll result (see skill method and the object returned).</p>
 
-<p>Used to calculate armor protection (damage absorption). In actual version of DiceRoller, damage is calculate as a "generic" damage, doesn´t differ from magic or elemental damage.</p>
+<p><code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code></p>
+
+<h4>
+<a name="armor-method" class="anchor" href="#armor-method"><span class="octicon octicon-link"></span></a>Armor method</h4>
+
+<p>Very simmilar as 'damage()'. This method needs to be defined before with the armor types on your game.</p>
+
+<p>In an object type, you can define every kind of armor to any kind of damage. As a more easy management of armor/protection, is better to declare the most used protections.</p>
+
+<p>Setting sides, fixed and rolls to 0, this protection will be ignored.</p>
 
 <h6>
 <a name="armor-settings" class="anchor" href="#armor-settings"><span class="octicon octicon-link"></span></a>Armor settings:</h6>
 
-<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight highlight-javascript"><pre>
+<span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+
     <span class="nx">physic</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
     <span class="nx">DamageReduction</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Damage Reduction'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
     <span class="nx">arcane</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Arcane'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
@@ -250,68 +344,227 @@
     <span class="nx">frost</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Frost'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">2</span> <span class="p">}</span> <span class="p">],</span>
     <span class="nx">electric</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Electric'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">],</span>
     <span class="nx">poison</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Poison'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">3</span> <span class="p">}</span> <span class="p">]</span>
+
 <span class="p">};</span>
 
 </pre></div>
-
-<p>The code from above prepares a object with an array of data, putting generic types of damage in almost all rolgames.</p>
 
 <h5>
 <a name="parameters-of-armor-object" class="anchor" href="#parameters-of-armor-object"><span class="octicon octicon-link"></span></a>Parameters of armor object:</h5>
 
 <ul>
-<li>
-<code>Name</code>: Name showed on the log.</li>
-<li>
-<code>Sides</code>: Sides of the Dice Armor.</li>
-<li>
-<code>Fixed</code>: Bonificator or penalty for the dice result.</li>
-<li>
-<code>Rolls</code>: How many rolls per dice.</li>
-</ul><p>Setting Sides at 0 doesn´t skip armor calculation, cause the game system maybe uses fixed values of damage reduction.</p>
+<li><p><code>Name</code>: Name showed on the log.</p></li>
+<li><p><code>Sides</code>: Sides of the Dice Armor.</p></li>
+<li><p><code>Fixed</code>: Bonificator or penalty for the dice result.</p></li>
+<li><p><code>Rolls</code>: How many rolls per dice.</p></li>
+</ul><p>Setting Sides at 0 doesn´t skip armor calculation, cause the game system maybe uses fixed values of damage reduction. </p>
 
-<p><strong>Armor(ArmorParams, FullDamage, Showlog);</strong></p>
+<p><strong>Example of mixed roll and fixed values:</strong></p>
+
+<p>An armor of 1d10+1 of physical (non magic or elemental damage) is :</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">physic</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}</span> <span class="p">]</span>
+
+<span class="p">};</span>
+</pre></div>
+
+<p>Same example, but only protects 6 damage points:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">physic</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">]</span>
+
+<span class="p">};</span>
+</pre></div>
+
+<p>Following the example of the "flaming sword", if your armor have +1d6-1 fire protection, the armor object will be the sequent:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="kd">var</span> <span class="nx">armor</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="nx">physic</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">0</span> <span class="p">}</span> <span class="p">],</span>
+    <span class="nx">fire</span> <span class="o">:</span> <span class="p">[</span> <span class="p">{</span> <span class="nx">Name</span><span class="o">:</span> <span class="s1">'Fire'</span><span class="p">,</span> <span class="nx">Sides</span> <span class="o">:</span> <span class="mi">6</span><span class="p">,</span> <span class="nx">Fixed</span> <span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">Rolls</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">}]</span>
+
+<span class="p">};</span>
+</pre></div>
+
+<hr><p><strong>Armor(ArmorParams, FullDamage, Showlog);</strong></p>
 
 <div class="highlight highlight-javascript"><pre>
-<span class="c1">//combined skill() result with damage() and armor()</span>
+<span class="c1">//As a complete combat sequence of roll-hit-damage-armor with default settings:</span>
 
-<span class="kd">var</span> <span class="nx">DmgResult</span> <span class="o">=</span> <span class="nx">system</span><span class="p">.</span><span class="nx">damage</span><span class="p">({</span>
-        <span class="c1">// this example is for a (2d6+2) + 1d4-3</span>
-        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
-        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">20</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
-        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span> <span class="p">]</span>
+<span class="kd">var</span> <span class="nx">DmgResult</span> <span class="o">=</span> <span class="nx">D</span><span class="p">().</span><span class="nx">damage</span><span class="p">({</span>
+        <span class="c1">// Our gorgeous Flaming Sword (1d8+1) + 3d4-3</span>
+        <span class="nx">Sides</span> <span class="o">:</span> <span class="p">[</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">4</span> <span class="p">],</span>
+        <span class="nx">ModDamage</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">Rolls</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span> <span class="p">],</span>
+        <span class="nx">TypeDamage</span><span class="o">:</span><span class="p">[</span><span class="s1">'Physic'</span><span class="p">,</span> <span class="nx">fire</span><span class="err">'</span><span class="p">]</span>
     <span class="p">},</span>
     <span class="nx">system</span><span class="p">.</span><span class="nx">skill</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="kc">false</span><span class="p">,</span><span class="kc">false</span><span class="p">),</span> 
     <span class="kc">true</span>
 <span class="p">);</span>
 
-<span class="nx">system</span><span class="p">.</span><span class="nx">armor</span><span class="p">(</span><span class="nx">armor</span><span class="p">,</span> <span class="nx">DmgResult</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="c1">// Passing armor object previous defined, following the damage roll stored in DmgResult and </span>
+<span class="c1">// setting showlog as true.</span>
+
+<span class="nx">D</span><span class="p">().</span><span class="nx">armor</span><span class="p">(</span><span class="nx">armor</span><span class="p">,</span> <span class="nx">DmgResult</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 
 </pre></div>
 
 <p><strong>Parameters</strong></p>
 
 <ul>
-<li>
-<code>armor</code>: Described above in "Armor Settings".</li>
-<li>
-<code>DmgResult</code>: Damage calculated from damage()</li>
-<li>
-<code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code>
-</li>
-</ul>
-      </section>
+<li><p><code>armor</code>: Described above in "Armor Settings".</p></li>
+<li><p><code>DmgResult</code>: Damage calculated from damage()</p></li>
+<li><p><code>showlog</code>: shows the rolls and the result on a div as a log. Div ID setted on <code>system.Historybox</code></p></li>
+</ul><h3>
+<a name="d20-roller" class="anchor" href="#d20-roller"><span class="octicon octicon-link"></span></a>D20 Roller:</h3>
+
+<p>This is a specific dice roller for games based on <strong>D&amp;D</strong>. I used the free open game documents from <em>Wizards of the Coast</em>.</p>
+
+<p>Suitable for all games who uses this basic rules.</p>
+
+<p>d20() have a very high independecy from game rules, except for style and showlog.</p>
+
+<p><strong>D().d20( params );</strong></p>
+
+<div class="highlight highlight-javascript"><pre>
+<span class="nx">D</span><span class="p">().</span><span class="nx">d20</span><span class="p">({</span>
+            <span class="nx">Sides</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">Rolls</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nx">Mod</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+            <span class="nx">Difficulty</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span>
+            <span class="nx">Critical</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span>
+            <span class="nx">EpicFail</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">});</span>
+
+
+</pre></div>
+
+<p><strong>Parametes :</strong></p>
+
+<ul>
+<li><p><code>Sides:</code> yes, i know this is a "D20" roller, but may be needs some restriction o using a modified version with a "D30".</p></li>
+<li><p><code>Rolls:</code> How many rolls for your dice.</p></li>
+<li><p><code>Mod:</code> put your modificators roll here (if there mor than one, sum it).</p></li>
+<li><p><code>Difficulty:</code> Sets roll difficulty to overcome.</p></li>
+<li><p><code>Critical:</code> Some feats augments your critical treshold.</p></li>
+<li><p><code>EpicFail:</code> Set to false to ignore Critical Fails.</p></li>
+</ul><h3>
+<a name="xd6-roller" class="anchor" href="#xd6-roller"><span class="octicon octicon-link"></span></a>XD6 roller</h3>
+
+<p>A roller for games who uses six sides dice, like Star Wars or Z-Corps, generally named as ==XD6== game system.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//Example for a 6d8 roll, difficulty set to 20 and a 'WildDice'</span>
+
+<span class="nx">D</span><span class="p">().</span><span class="nx">dx</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+</pre></div>
+
+<p>XD6 sometimes uses a "Wild Dice" or a "Chaos Dice". Ussually is a different colored d6, with the particularity of "exploding" property.</p>
+
+<p>The "exploding" means a 6 result and roll again, until a non 6 result appears, more fammiliar for MERP players as "open roll", but only for this "different roll".</p>
+
+<p>The Wild Dice isn´t a extra dice to add to your rolls, is one of your dices. As example, your character needs to open a locked door, and your skill for unlock it is 3d6 with a difficulty of ==20==.
+The easy part to understand is "your cannot accomplish that, cause 6x3 = ==18== ", but your roll isn´t 3d6, your roll is 2d6 plus Wild Dice. Your roll for 5 and 3, but the Wild Dice rolls for 6 and eplodes and roll again for 6, and for a 3.</p>
+
+<p>Finally, your roll is 5, 3, 6, 6 and 3, == Total of 23 ==, you´re succesful and unlock the door.</p>
+
+<p>If your skill only have one dice, this dice is a Wild Dice.</p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">// dx(sides, rolls, difficulty, wildDice)</span>
+
+<span class="c1">//Example of a 6d8, with difficulty set to 20 and Wild Dice enabled</span>
+<span class="nx">D</span><span class="p">().</span><span class="nx">dx</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="kc">true</span><span class="p">);</span>
+
+</pre></div>
+
+<p><strong>Params:</strong></p>
+
+<ul>
+<li><p><code>Sides:</code> As said in d20(), may use a game very simmilar, but with different dices. Set your dice sides here.</p></li>
+<li><p><code>Rolls:</code> How many rolls for your dices.</p></li>
+<li><p><code>Difficulty:</code> Set difficulty roll.</p></li>
+<li><p><code>WildDice:</code> Set to true to enable Wild Dice.</p></li>
+</ul><h5>
+<a name="rule-of-one" class="anchor" href="#rule-of-one"><span class="octicon octicon-link"></span></a>Rule of one:</h5>
+
+<p>XD6 by default uses "==the rule of one==". If the Wild Dice rolls for 1, the biggest dice roll will be supressed and, of course, the Wild Dice.</p>
+
+<p>But this isn't means a failure, if the sum of the rest of dices are bigger than difficulty setted, the roll have a success (in game terms, may be very marginal), but a failure can be (in game) a critical fail.</p>
+
+<hr><h3>
+<a name="confront" class="anchor" href="#confront"><span class="octicon octicon-link"></span></a>Confront</h3>
+
+<p>Very specific roller for confornt habilities or punctuations in BRP. Very common on BRP games do a "fight" of punctuations like STRength VS CONstitution.</p>
+
+<p><strong>How it works:</strong></p>
+
+<p>Using a base of 50% for the two punctuations, sums +5% for every point of differente from attacker (STR) and defender (CON).</p>
+
+<p>Using number of STR 18 and CON 12 is very simple, is a difference operation 18-12 = 6. And for every point of difference adds a 5% : 6 * 5 = +30%. Means a 50% of base roll plus 30 equals a 80% of possibilities to win.</p>
+
+<p>But inverse case is possible, changing numbers from STR 18 to 12 and CON 12 to 18, looks like this : </p>
+
+<p><code>12 - 18 = -6; -6 * 5 = -30%; 50 + ( -30 ) = 20%</code></p>
+
+<p>The attacker only have 20% chances to win.</p>
+
+<p><strong>D().confront(attacker, defender)</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//Attacker and defender, this example is a 50-50 chances to win for attacker and defender.</span>
+
+<span class="nx">D</span><span class="p">().</span><span class="nx">confront</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="mi">15</span><span class="p">);</span>
+
+</pre></div>
+
+<p><strong>Params:</strong></p>
+
+<p>Very simple, as only needs to set the punctuations for the encounter. But as a tool for percentual game rules, set your´s with critical, special, critical fail, etc.</p>
+
+<h3>
+<a name="vda-roller" class="anchor" href="#vda-roller"><span class="octicon octicon-link"></span></a>VDA Roller</h3>
+
+<p>VDA means <strong>Vampire: Dark Age</strong>. Is the roller for first edition (1996) of this game. Very simple and simmilar to XD6, but in VDA your roll many dices as your principal hability and your skill (or discipline), and only need one succes.</p>
+
+<p>As more successes, better realization of the action. With no critical rolls and a dífficult to overcome every dice (XD6 sums all reults).</p>
+
+<p><strong>D().vda(Sides, Rolls, Difficulty</strong></p>
+
+<div class="highlight highlight-javascript"><pre><span class="c1">//Rolls 6d10, and a difficulty of 8</span>
+
+<span class="nx">D</span><span class="p">().</span><span class="nx">vda</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">);</span>
+</pre></div>
+
+<p><strong>Params:</strong></p>
+
+<ul>
+<li><p><code>Sides:</code> Sides of your main dices.</p></li>
+<li><p><code>Rolls:</code> How many rolls.</p></li>
+<li><p><code>Difficulty:</code> Difficulty to overcome. As said before, in this game rules, every dice needs to surpass difficulty, but is enought with only one for a marginal success.</p></li>
+</ul><h4>
+<a name="game-settings-in-d20-dx-and-vda" class="anchor" href="#game-settings-in-d20-dx-and-vda"><span class="octicon octicon-link"></span></a>Game settings in d20(), dx() and vda():</h4>
+
+<p>d20(),dx() and vda() uses his own rules, and only few of game settings will be used. ==CSS== styles and the "log box" needs to be set if you want to use a different one, or the tag wrapping every roll (by default uses a 'p' tag).</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/Derenhein/DiceRoller/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/Derenhein/DiceRoller/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/Derenhein/DiceRoller"></a> is maintained by <a href="https://github.com/Derenhein">Derenhein</a>.</p>
+
+          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Diceroller maintained by <a href="https://github.com/Derenhein">Derenhein</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
+  
   </body>
 </html>
